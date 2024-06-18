@@ -70,7 +70,7 @@
 									<span>
 										<i class="ti ti-book"></i>
 									</span>
-									<span class="hide-menu">Peminjaman</span>
+									<span class="hide-menu">Data Admin</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
@@ -78,10 +78,34 @@
 									<span>
 										<i class="ti ti-archive"></i>
 									</span>
-									<span class="hide-menu">Pengembalian</span>
+									<span class="hide-menu">Data Buku</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
+								<a class="sidebar-link" href="index4.html" aria-expanded="false">
+									<span>
+										<i class="ti ti-medal"></i>
+									</span>
+									<span class="hide-menu">Peminjaman Buku</span>
+								</a>
+							</li>
+                            <li class="sidebar-item">
+								<a class="sidebar-link" href="index4.html" aria-expanded="false">
+									<span>
+										<i class="ti ti-medal"></i>
+									</span>
+									<span class="hide-menu">Pengembalian Buku</span>
+								</a>
+							</li>
+                            <li class="sidebar-item">
+								<a class="sidebar-link" href="index4.html" aria-expanded="false">
+									<span>
+										<i class="ti ti-medal"></i>
+									</span>
+									<span class="hide-menu">Denda</span>
+								</a>
+							</li>
+                            <li class="sidebar-item">
 								<a class="sidebar-link" href="index4.html" aria-expanded="false">
 									<span>
 										<i class="ti ti-medal"></i>
@@ -132,6 +156,9 @@
 								<i class="ti ti-dots fs-7"></i>
 							</span>
 						</button>
+                        
+                        <h4>Selamat Datang!</h4>
+
 						<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 							<div class="d-flex align-items-center justify-content-between">
 								<a href="javascript:void(0)" class="nav-link d-flex d-lg-none align-items-center justify-content-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar" aria-controls="offcanvasWithBothOptions">
