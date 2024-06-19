@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,10 @@ Route::get("/dashboard", [DashboardController::class, "index"])
 Route::get("/adminDashboard", [AdminDashboardController::class, "index"])
     ->middleware(["auth", "verified"])
     ->name("adminDashboard");
+
+Route::get("/adminData", [AdminDataController::class, "index"])
+    ->middleware(["auth", "verified"])
+    ->name("adminData");
 
 //login logout
 Route::get('/login', [LoginController::class, 'index'])->name('login');

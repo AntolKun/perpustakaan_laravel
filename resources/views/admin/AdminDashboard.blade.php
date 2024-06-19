@@ -1,125 +1,139 @@
 @extends('layouts.AdminTemplate')
-@section('content')
 
+@section('css')
+<!-- Bootstrap Css -->
+<link href="{{ asset('skoteassets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+<!-- Icons Css -->
+<link href="{{ asset('skoteassets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+<!-- App Css-->
+<link href="{{ asset('skoteassets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+@stop
+
+@section('content')
 <div class="row">
-	<!-- Column -->
-	<div class="col-lg-3 col-md-6">
-		<div class="card">
-			<div class="card-body">
-				<div class="d-flex flex-row align-items-center">
-					<div class="round-40 rounded-circle text-white d-flex align-items-center justify-content-center bg-success">
-						<i class="ti ti-credit-card fs-6"></i>
-					</div>
-					<div class="ms-3 align-self-center">
-						<h3 class="mb-0 fs-6">21</h3>
-						<span class="text-muted">Data Admin</span>
-					</div>
-				</div>
-			</div>
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Dashboard</h4>
 		</div>
 	</div>
-	<!-- Column -->
-	<!-- Column -->
-	<div class="col-lg-3 col-md-6">
-		<div class="card">
-			<div class="card-body">
-				<div class="d-flex flex-row align-items-center">
-					<div class="round-40 rounded-circle text-white d-flex align-items-center justify-content-center bg-info">
-						<i class="ti ti-users fs-6"></i>
-					</div>
-					<div class="ms-3 align-self-center">
-						<h3 class="mb-0 fs-6">2690</h3>
-						<span class="text-muted">Data Buku</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Column -->
-	<!-- Column -->
-	<div class="col-lg-3 col-md-6">
-		<div class="card">
-			<div class="card-body">
-				<div class="d-flex flex-row align-items-center">
-					<div class="round-40 rounded-circle text-white d-flex align-items-center justify-content-center bg-danger">
-						<i class="ti ti-calendar fs-6"></i>
-					</div>
-					<div class="ms-3 align-self-center">
-						<h3 class="mb-0 fs-6">19</h3>
-						<span class="text-muted">Peminjaman Buku</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Column -->
-	<!-- Column -->
-	<div class="col-lg-3 col-md-6">
-		<div class="card">
-			<div class="card-body">
-				<div class="d-flex flex-row align-items-center">
-					<div class="round-40 rounded-circle text-white d-flex align-items-center justify-content-center bg-success">
-						<i class="ti ti-settings fs-6"></i>
-					</div>
-					<div class="ms-3 align-self-center">
-						<h3 class="mb-0 fs-6">13</h3>
-						<span class="text-muted">Pengembalian Buku</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Column -->
-	<!-- Column -->
-	<div class="col-lg-3 col-md-6">
-		<div class="card">
-			<div class="card-body">
-				<div class="d-flex flex-row align-items-center">
-					<div class="round-40 rounded-circle text-white d-flex align-items-center justify-content-center bg-success">
-						<i class="ti ti-settings fs-6"></i>
-					</div>
-					<div class="ms-3 align-self-center">
-						<h3 class="mb-0 fs-6">17</h3>
-						<span class="text-muted">Lomba Literasi</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Column -->
-	<!-- Column -->
-	<div class="col-lg-3 col-md-6">
-		<div class="card">
-			<div class="card-body">
-				<div class="d-flex flex-row align-items-center">
-					<div class="ms-3 align-self-center">
-						<h6 class="text-muted">Syarat Dan Ketentuan Peminjaman</h6>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Column -->
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<div class="row">
+	<div class="col-xl-12">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="card mini-stats-wid">
+					<div class="card-body">
+						<div class="d-flex">
+							<div class="flex-grow-1">
+								<p class="text-muted fw-medium">Data Admin</p>
+								<h4 class="mb-0">12</h4>
+							</div>
+							<div class="flex-shrink-0 align-self-center">
+								<div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
+									<span class="avatar-title">
+										<i class="bx bx-copy-alt font-size-24"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-@if ($message = session()->get('success'))
-<script type="text/javascript">
-	Swal.fire({
-		icon: "success",
-		title: "Sukses!",
-		text: "{{ $message }}",
-	});
-</script>
-@endif @if ($message = session()->get('error'))
-<script type="text/javascript">
-	Swal.fire({
-		icon: "error",
-		title: "Waduh!",
-		text: "{{ $message }}",
-	});
-</script>
+			<div class="col-md-3">
+				<div class="card mini-stats-wid">
+					<div class="card-body">
+						<div class="d-flex">
+							<div class="flex-grow-1">
+								<p class="text-muted fw-medium">Data Buku</p>
+								<h4 class="mb-0">2009</h4>
+							</div>
+							<div class="flex-shrink-0 align-self-center">
+								<div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+									<span class="avatar-title rounded-circle bg-primary">
+										<i class="bx bx-purchase-tag-alt font-size-24"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-@endif
+			<div class="col-md-3">
+				<div class="card mini-stats-wid">
+					<div class="card-body">
+						<div class="d-flex">
+							<div class="flex-grow-1">
+								<p class="text-muted fw-medium">Peminjaman Buku</p>
+								<h4 class="mb-0">17</h4>
+							</div>
+							<div class="flex-shrink-0 align-self-center">
+								<div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+									<span class="avatar-title rounded-circle bg-primary">
+										<i class="bx bx-purchase-tag-alt font-size-24"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-3">
+				<div class="card mini-stats-wid">
+					<div class="card-body">
+						<div class="d-flex">
+							<div class="flex-grow-1">
+								<p class="text-muted fw-medium">Pengembalian Buku</p>
+								<h4 class="mb-0">9</h4>
+							</div>
+							<div class="flex-shrink-0 align-self-center">
+								<div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+									<span class="avatar-title rounded-circle bg-primary">
+										<i class="bx bx-purchase-tag-alt font-size-24"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-3">
+				<div class="card mini-stats-wid">
+					<div class="card-body">
+						<div class="d-flex">
+							<div class="flex-grow-1">
+								<p class="text-muted fw-medium">Lomba Literasi</p>
+								<h4 class="mb-0">14</h4>
+							</div>
+							<div class="flex-shrink-0 align-self-center">
+								<div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+									<span class="avatar-title rounded-circle bg-primary">
+										<i class="bx bx-purchase-tag-alt font-size-24"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-3">
+				<div class="card mini-stats-wid">
+					<div class="card-body">
+						<div class="d-flex">
+							<div class="flex-grow-1">
+								<h4 class="mb-0">Syarat dan Ketentuan Peminjaman</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
 @endsection
