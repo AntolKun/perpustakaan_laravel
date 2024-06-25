@@ -10,58 +10,84 @@
 @stop
 
 @section('content')
+
 <div class="row">
 	<div class="col-12">
 		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
-			<h4 class="mb-sm-0 font-size-18">Data Admin</h4>
-			<div>
-				<a type="button" class="btn btn-primary waves-effect waves-light" href="/adminTambah">
-					<i class="bx bx-plus font-size-16 align-middle me-2"></i>Tambah Admin</a>
-			</div>
+			<h4 class="mb-sm-0 font-size-18">Tambah Buku</h4>
 		</div>
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-12">
-		<table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
-			<thead>
-				<tr>
-					<th>Nama</th>
-					<th>NIP</th>
-					<th>Email</th>
-					<th>Kata Sandi</th>
-					<th>Aksi</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach($admin as $a)
-				<tr>
-					<td>{{ $a->nama }}</td>
-					<td>{{ $a->nip }}</td>
-					<td>{{ $a->email }}</td>
-					<td>{{ $a->password_placeholder }}</td>
-					<td>
-						<div class="row">
-							<div class="col-4">
-								<a type="button" class="btn btn-warning waves-effect waves-light" href="/adminLihatData/{{ $a->id }}">Lihat</a>
-							</div>
-							<div class="col-4">
-								<a type="button" class="btn btn-primary waves-effect waves-light" href="/getAdminEdit/{{ $a->id }}">Edit</a>
-							</div>
-							<div class="col-4">
-								<form action="{{ url('/adminDelete') }}/{{ $a->id }}" method="POST">
-									@csrf
-									@method("DELETE")
-									<button type="submit" class="btn btn-danger waves-effect waves-light">Hapus</button>
-								</form>
+<div class="row justify-content-center">
+	<div class="col-12 col-md-6">
+		<div class="card">
+			<div class="card-body">
+				<form action="/bukuEdit/{{ $buku->id }}" method="POST" enctype="multipart/form-data">
+					{{ csrf_field() }}
+					@method('PUT')
+					<div class="row">
+						<div class="col-md-12 mt-4">
+							<div class="form-group">
+								<label for="judulbuku">Judul Buku</label>
+								<input type="text" class="form-control" id="judulbuku" name="judulbuku" placeholder="Masukkan judul buku" value="{{ $buku->judulbuku }}">
 							</div>
 						</div>
-					</td>
-				</tr>
-				@endforeach
-			</tbody>
-		</table>
+
+						<div class="col-md-12 mt-4">
+							<div class="form-group">
+								<label for="isbn">ISBN</label>
+								<input type="text" class="form-control" id="isbn" name="isbn" placeholder="Masukkan ISBN" value="{{ $buku->isbn }}">
+							</div>
+						</div>
+
+						<div class="col-md-12 mt-4">
+							<div class="form-group">
+								<label for="penerbit">Penerbit</label>
+								<input type="text" class="form-control" id="penerbit" name="penerbit" placeholder="Masukkan penerbit" value="{{ $buku->penerbit }}">
+							</div>
+						</div>
+
+						<div class="col-md-12 mt-4">
+							<div class="form-group">
+								<label for="tahun_terbit">Tahun Terbit</label>
+								<input type="number" class="form-control" id="tahun_terbit" name="tahun_terbit" placeholder="Masukkan tahun terbit" value="{{ $buku->tahun_terbit }}">
+							</div>
+						</div>
+
+						<div class="col-md-12 mt-4">
+							<div class="form-group">
+								<label for="stok">Stok</label>
+								<input type="number" class="form-control" id="stok" name="stok" placeholder="Masukkan stok" value="{{ $buku->stok }}">
+							</div>
+						</div>
+
+						<div class="col-md-12 mt-4">
+							<div class="form-group">
+								<label for="sinopsis">Sinopsis</label>
+								<textarea id="sinopsis" name="sinopsis" class="form-control" rows="3" style="height: 173px;">{{ $buku->sinopsis }}</textarea>
+							</div>
+						</div>
+
+						<div class="col-md-12 mt-4">
+							<div class="form-group">
+								<label for="gambar">Gambar Buku</label>
+								@if(isset($buku->gambar))
+								<div>
+									<img src="{{ asset('fotobuku/' . $buku->gambar) }}" alt="Gambar Buku" class="img-thumbnail" style="max-width: 200px;">
+								</div>
+								@endif
+								<input class="form-control mt-2" type="file" id="gambar" name="gambar" value="{{ $buku->gambar }}">
+							</div>
+						</div>
+
+						<div class="row-12 mt-4">
+							<button type="submit" class="btn btn-primary">Tambah</button>
+							<a href="/adminBuku" type="button" class="btn btn-danger waves-effect waves-light">Kembali</a>
+						</div>
+					</div>
+			</div>
+		</div>
 	</div>
 </div>
 

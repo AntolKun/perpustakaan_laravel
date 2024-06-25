@@ -105,7 +105,7 @@
 						</li>
 
 						<li>
-							<a href="/dashboard" class="waves-effect">
+							<a href="/adminBuku" class="waves-effect">
 								<i class="bx bx-file"></i>
 								<span key="t-file-manager">Data Buku</span>
 							</a>

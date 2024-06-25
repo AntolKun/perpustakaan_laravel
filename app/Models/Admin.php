@@ -20,5 +20,5 @@ class Admin extends Model
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
-    }
+    }   
 }
