@@ -1,115 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-		<!--  Title -->
-		<title>Perpustakaan SMAN 8 Bandar Lampung</title>
-		<!--  Required Meta Tag -->
-		<style>
-				.left-logo {
-						position: absolute;
-						top: 20px;
-						left: 20px;
-						width: 100px;
-						height: auto;
-				}
-		</style>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="handheldfriendly" content="true" />
-		<meta name="MobileOptimized" content="width" />
-		<meta name="description" content="Web Perpustakaan SMA Negeri 8 Bandar Lampung" />
-		<meta name="author" content="" />
-		<meta name="keywords" content="Mordenize" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<!--  Favicon -->
-		<link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logosma.png') }}" />
-		<!-- Core Css -->
-		<link  id="themeColors"  rel="stylesheet" href="{{ asset('dist/css/style.min.css') }}" />
-	</head>
-	<body>
-		<!-- Preloader -->
-		<div class="preloader">
-			<img src="{{ asset('assets/images/logosma.png') }}" alt="loader" class="lds-ripple img-fluid" />
-		</div>
-		<!-- Preloader -->
-		<div class="preloader">
-			<img src="{{ asset('assets/images/logosma.png') }}" alt="loader" class="lds-ripple img-fluid" />
-		</div>
-		<!--  Body Wrapper -->
-		<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
-			<div class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center" style="background-image: url('{{ asset('assets/images/bglogin.png') }}'); background-size: cover; background-position: center;">
-				<img src="{{ asset('assets/images/logosma.png') }}" alt="Logo SMA" class="left-logo">
-				<div class="d-flex align-items-center justify-content-center w-100">
-					<div class="row justify-content-center w-100">
-						<div class="col-md-8 col-lg-6 col-xxl-3">
-							<div class="card mb-0">
-								<div class="card-body">
-									<div class="position-relative text-center my-4">
-										<p class="mb-0 fs-4 px-3 d-inline-block bg-white text-dark z-index-5 position-relative text-bold">Selamat Datang di Perpustakaan</p>
-										<p class="mb-0 fs-4 px-3 d-inline-block bg-white text-dark z-index-5 position-relative text-bold">SMA NEGERI 8 BANDAR LAMPUNG</p>
-									</div>
-									<div class="position-relative text-center my-4">
-										<p class="mb-0 fs-4 px-3 d-inline-block bg-white text-dark z-index-5 position-relative">Silahkan Login</p>
-										<span class="border-top w-100 position-absolute top-50 start-50 translate-middle"></span>
-									</div>
 
-									<form class="form-horizontal" method="POST" action="{{ url('actionLogin') }}">
+<head>
+	<!--  Title -->
+	<title>Perpustakaan SMAN 8 Bandar Lampung</title>
+	<!--  Required Meta Tag -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="handheldfriendly" content="true" />
+	<meta name="MobileOptimized" content="width" />
+	<meta name="description" content="Web Perpustakaan SMAN 8 Bandar Lampung" />
+	<meta name="author" content="Najib Wiharjanto" />
+	<meta name="keywords" content="Perpustakaan SMAN 8 Bandar Lampung" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<!--  Favicon -->
+	<link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logosma.png') }}" />
+	<!-- Core Css -->
+	<link id="themeColors" rel="stylesheet" href="{{ asset('dist/css/style.min.css') }}" />
+</head>
+
+<body>
+	<!-- Preloader -->
+	<div class="preloader">
+		<img src="{{ asset('assets/images/logosma.png') }}" alt="loader" class="lds-ripple img-fluid" />
+	</div>
+	<!-- Preloader -->
+	<!-- <div class="preloader">
+		<img src="{{ asset('assets/images/logosma.png') }}" alt="loader" class="lds-ripple img-fluid" />
+	</div> -->
+	<!--  Body Wrapper -->
+	<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
+		<div class="position-relative overflow-hidden radial-gradient min-vh-100">
+			<div class="position-relative z-index-5">
+				<div class="row">
+					<div class="col-xl-6 col-xxl-6">
+						<div class="authentication-login min-vh-100 bg-body row justify-content-center align-items-center p-4">
+							<div class="col-sm-8 col-md-6 col-xl-9">
+								<!-- Logo Sekolah -->
+								<img src="{{ asset('assets/images/logosma.png') }}" alt="Logo Sekolah" class="img-fluid mb-4" style="max-width: 150px;">
+								<!-- Teks Selamat Datang -->
+								<h2 class="mb-3 fs-7 fw-bolder d-flex align-items-center text-center">Selamat datang di Perpustakaan SMAN 8 Bandar Lampung</h2>
+								<p class="text-center my-4">Silahkan Login</p>
+								<form method="POST" action="{{ url('actionLogin') }}">
 									{{ csrf_field() }}
-										<div class="mb-3">
-											<label for="username" class="form-label">Username</label>
-											<input type="username" name="username" class="form-control" id="username" aria-describedby="input username">
+									<div class="mb-3">
+										<label for="email" class="form-label">Email</label>
+										<input type="email" class="form-control" id="email" name="email" placeholder="Masukkan email anda..." required>
+									</div>
+									<div class="mb-4">
+										<label for="password" class="form-label">Password</label>
+										<input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password anda..." required>
+									</div>
+									<button type="submit" class="btn btn-primary w-100 py-8 mb-4 rounded-2">Sign In</button>
+									<div class="row d-flex">
+										<div class="position-relative mt-3">
+											<a class="text-primary fw-medium position-absolute top-50 start-0 translate-middle-y" href="#">Lupa Sandi?</a>
+											<a class="text-primary fw-medium position-absolute top-50 end-0 translate-middle-y" href="/register">Buat Akun</a>
 										</div>
-										<div class="mb-4">
-											<label for="password" class="form-label">Password</label>
-											<input type="password" name="password" class="form-control" id="password">
-										</div>
-										<button class="btn btn-primary w-100 py-8 mb-4 rounded-2">Sign In</button>
-										<div class="row d-flex">
-											<div class="position-relative mt-3">
-												<a class="text-primary fw-medium position-absolute top-50 start-0 translate-middle-y" href="#">Lupa Sandi?</a>
-												<a class="text-primary fw-medium position-absolute top-50 end-0 translate-middle-y" href="/register">Buat Akun</a>
-											</div>
-										</div>
-									</form>
-								</div>
+									</div>
+								</form>
 							</div>
+						</div>
+					</div>
+					<div class="col-xl-6 col-xxl-6">
+						<div class="d-none d-xl-flex align-items-center justify-content-center pt-5" style="height: calc(100vh - 80px);">
+							<img src="{{ asset('assets/images/LOGIN.SVG') }}" alt="" class="img-fluid" width="500">
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
-		<!--  Import Js Files -->
-		<script src="{{ asset('dist/libs/jquery/dist/jquery.min.js') }}"></script>
-		<script src="{{ asset('dist/libs/simplebar/dist/simplebar.min.js') }}"></script>
-		<script src="{{ asset('dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
-		<!--  core files -->
-		<script src="{{ asset('dist/js/app.min.js') }}"></script>
-		<script src="{{ asset('dist/js/app.init.js') }}"></script>
-		<script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
-		<script src="{{ asset('dist/js/sidebarmenu.js') }}"></script>
-		
-		<script src="{{ asset('dist/js/custom.js') }}"></script>
-		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	</div>
+</body>
 
-		@if ($message = session()->get('success'))
-		<script type="text/javascript">
-			Swal.fire({
-				icon: 'success',
-				title: 'Sukses!',
-				text: '{{ $message }}',
-			})
-		</script>
-		@endif
+<!--  Import Js Files -->
+<script src="{{ asset('dist/libs/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('dist/libs/simplebar/dist/simplebar.min.js') }}"></script>
+<script src="{{ asset('dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+<!--  core files -->
+<script src="{{ asset('dist/js/app.min.js') }}"></script>
+<script src="{{ asset('dist/js/app.init.js') }}"></script>
+<script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
+<script src="{{ asset('dist/js/sidebarmenu.js') }}"></script>
 
-		@if ($message = session()->get('error'))
-		<script type="text/javascript">
-			Swal.fire({
-				icon: 'error',
-				title: 'Waduh!',
-				text: '{{ $message }}',
-			})
-		</script>
-		@endif
-	</body>
+<script src="{{ asset('dist/js/custom.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if ($message = session()->get('success'))
+<script type="text/javascript">
+	Swal.fire({
+		icon: 'success',
+		title: 'Sukses!',
+		text: '{{ $message }}',
+	})
+</script>
+@endif
+
+@if ($message = session()->get('error'))
+<script type="text/javascript">
+	Swal.fire({
+		icon: 'error',
+		title: 'Waduh!',
+		text: '{{ $message }}',
+	})
+</script>
+@endif
+</body>
+
 </html>

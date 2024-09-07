@@ -60,10 +60,8 @@ class AdminBukuController extends Controller
     public function destroy($id)
     {
         $buku = Buku::findOrFail($id);
-        // Get the image file name
         $imagePath = public_path('fotobuku/' . $buku->gambar);
 
-        // Delete the image file if it exists
         if (file_exists($imagePath)) {
             unlink($imagePath);
         }

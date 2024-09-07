@@ -14,54 +14,95 @@
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0 font-size-18">Lihat Admin</h4>
+            <h4 class="mb-sm-0 font-size-18">Edit Admin</h4>
         </div>
     </div>
 </div>
 
 <div class="row justify-content-center">
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-12">
         <div class="card">
             <div class="card-body">
                 <form action="/adminEdit/{{ $admin->id }}" method="POST" enctype="multipart/form-data">
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
                     {{ csrf_field() }}
                     @method('PUT')
-                    <div class="row">
-                        <div class="col-md-12 mt-4">
-                            <div class="form-group">
-                                <label for="nama">Nama</label>
-                                <input type="text" class="form-control" id="nama" name="nama" value="{{ $admin->nama }}" placeholder="Masukkan Nama">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-md-6 mt-4">
+                                <div class="form-group">
+                                    <label for="nama">Nama</label>
+                                    <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama', $admin->nama) }}" placeholder="Masukkan Nama">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-12 mt-4">
-                            <div class="form-group">
-                                <label for="nip">NIP</label>
-                                <input type="number" class="form-control" id="nip" name="nip" value="{{ $admin->nip }}" placeholder="Masukkan NIP">
-                            </div>
-                        </div>
-
-                        <div class="col-md-12 mt-4">
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" value="{{ $admin->email }}" placeholder="Masukkan Email">
-                            </div>
-                        </div>
-
-                        <div class="col-md-12 mt-4">
-                            <div class="form-group">
-                                <label class="form-label">Password</label>
-                                <div class="input-group auth-pass-inputgroup">
-                                    <input type="password" class="form-control" name="password" value="{{ $admin->password }}" placeholder="Enter password" aria-label="Password">
-                                    <button class="btn btn-light" type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
+                            <div class="col-md-6 mt-4">
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" class="form-control" id="username" name="username" value="{{ old('username', $admin->username) }}" placeholder="Masukkan Username">
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="row-12 mt-4">
-                                <button type="submit" class="btn btn-primary waves-effect waves-light">Simpan</button>
-                                <a type="button" class="btn btn-success waves-effect waves-light" href="/adminData">Kembali</a>
+                            <div class="col-md-6 mt-4">
+                                <div class="form-group">
+                                    <label for="foto">Foto</label>
+                                    @if($admin->foto)
+                                    <div class="mb-2">
+                                        <img src="{{ asset('admin_photos/' . $admin->foto) }}" alt="Admin Photo" class="img-fluid" style="max-height: 200px;">
+                                    </div>
+                                    @else
+                                    <p>No photo available</p>
+                                    @endif
+                                    <input type="file" class="form-control" id="foto" name="foto">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mt-4">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $admin->email) }}" placeholder="Masukkan Email">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mt-4">
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <div class="input-group auth-pass-inputgroup">
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter new password">
+                                        <button class="btn btn-light" type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mt-4">
+                                <div class="form-group">
+                                    <label for="password">Konfirmasi Password</label>
+                                    <div class="input-group auth-pass-inputgroup">
+                                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="konfirmasi password">
+                                        <button class="btn btn-light" type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mt-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Simpan</button>
+                                    <a type="button" class="btn btn-success waves-effect waves-light" href="/adminData">Kembali</a>
+                                </div>
                             </div>
                         </div>
                     </div>

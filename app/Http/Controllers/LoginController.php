@@ -22,7 +22,7 @@ class LoginController extends Controller
 	public function actionLogin(Request $request)
 	{
 		$data = [
-			'username' => $request->username,
+			'email' => $request->email,
 			'password' => $request->password,
 		];
 
@@ -30,7 +30,7 @@ class LoginController extends Controller
 			return redirect('/dashboard')->with('success', 'Berhasil Login!');
 			// return back()->with('success', 'Masuk');
 		} else {
-			return back()->with('error', 'Nama atau Password salah!');
+			return back()->with('error', 'Email atau Password salah!');
 		}
 	}
 

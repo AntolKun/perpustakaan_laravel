@@ -20,58 +20,62 @@
 </div>
 
 <div class="row justify-content-center">
-	<div class="col-12 col-md-6">
+	<div class="col-12 col-md-12">
 		<div class="card">
 			<div class="card-body">
 				<form action="{{ url('/storeBuku') }}" method="POST" enctype="multipart/form-data">
 					{{ csrf_field() }}
 					<div class="row">
-						<div class="col-md-12 mt-4">
-							<div class="form-group">
-								<label for="judulbuku">Judul Buku</label>
-								<input type="text" class="form-control" id="judulbuku" name="judulbuku" placeholder="Masukkan judul buku" required>
+						<div class="col">
+							<div class="col-md-12 mt-4">
+								<div class="form-group">
+									<label for="judulbuku">Judul Buku</label>
+									<input type="text" class="form-control" id="judulbuku" name="judulbuku" placeholder="Masukkan judul buku" required>
+								</div>
+							</div>
+
+							<div class="col-md-12 mt-4">
+								<div class="form-group">
+									<label for="isbn">ISBN</label>
+									<input type="text" class="form-control" id="isbn" name="isbn" placeholder="Masukkan ISBN" required>
+								</div>
+							</div>
+
+							<div class="col-md-12 mt-4">
+								<div class="form-group">
+									<label for="penerbit">Penerbit</label>
+									<input type="text" class="form-control" id="penerbit" name="penerbit" placeholder="Masukkan penerbit" required>
+								</div>
+							</div>
+						</div>
+
+						<div class="col">
+							<div class="col-md-12 mt-4">
+								<div class="form-group">
+									<label for="tahun_terbit">Tahun Terbit</label>
+									<input type="number" class="form-control" id="tahun_terbit" name="tahun_terbit" placeholder="Masukkan tahun terbit" required>
+								</div>
+							</div>
+
+							<div class="col-md-12 mt-4">
+								<div class="form-group">
+									<label for="stok">Stok</label>
+									<input type="number" class="form-control" id="stok" name="stok" placeholder="Masukkan stok" required>
+								</div>
+							</div>
+
+							<div class="col-md-12 mt-4">
+								<div class="form-group">
+									<label for="gambar">Gambar Buku</label>
+									<input class="form-control" type="file" id="gambar" name="gambar">
+								</div>
 							</div>
 						</div>
 
 						<div class="col-md-12 mt-4">
 							<div class="form-group">
-								<label for="isbn">ISBN</label>
-								<input type="text" class="form-control" id="isbn" name="isbn" placeholder="Masukkan ISBN" required>
-							</div>
-						</div>
-
-						<div class="col-md-12 mt-4">
-							<div class="form-group">
-								<label for="penerbit">Penerbit</label>
-								<input type="text" class="form-control" id="penerbit" name="penerbit" placeholder="Masukkan penerbit" required>
-							</div>
-						</div>
-
-						<div class="col-md-12 mt-4">
-							<div class="form-group">
-								<label for="tahun_terbit">Tahun Terbit</label>
-								<input type="number" class="form-control" id="tahun_terbit" name="tahun_terbit" placeholder="Masukkan tahun terbit" required>
-							</div>
-						</div>
-
-						<div class="col-md-12 mt-4">
-							<div class="form-group">
-								<label for="stok">Stok</label>
-								<input type="number" class="form-control" id="stok" name="stok" placeholder="Masukkan stok" required>
-							</div>
-						</div>
-
-						<div class="col-md-12 mt-4">
-							<div class="form-group">
-								<label for="sinopsis">Sinopsis</label>
+								<label for="sinopsis">Deskripsi Buku</label>
 								<textarea required id="sinopsis" name="sinopsis" class="form-control" rows="3" style="height: 173px;"></textarea>
-							</div>
-						</div>
-
-						<div class="col-md-12 mt-4">
-							<div class="form-group">
-								<label for="gambar">Gambar Buku</label>
-								<input class="form-control" type="file" id="gambar" name="gambar">
 							</div>
 						</div>
 
@@ -81,8 +85,10 @@
 						</div>
 					</div>
 			</div>
+			</form>
 		</div>
 	</div>
+</div>
 </div>
 
 @section('js')

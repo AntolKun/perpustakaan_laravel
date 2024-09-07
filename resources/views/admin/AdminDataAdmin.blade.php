@@ -24,23 +24,29 @@
 
 <div class="row">
 	<div class="col-12">
-		<table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
-			<thead>
+		<table id="datatable" class="table table-bordered dt-responsive nowrap w-100" style="border: 2px solid #3751CF;">
+			<thead style="background-color: #3751CF; color: white;">
 				<tr>
+					<th>Foto</th>
 					<th>Nama</th>
-					<th>NIP</th>
+					<th>Username</th>
 					<th>Email</th>
-					<th>Kata Sandi</th>
 					<th>Aksi</th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach($admin as $a)
 				<tr>
+					<td>
+						@if($a->foto)
+							<img src="{{ asset('admin_photos/' . $a->foto) }}" alt="{{ $a->nama }}" width="100" height="100">
+						@else
+							No Photo
+						@endif
+					</td>
 					<td>{{ $a->nama }}</td>
-					<td>{{ $a->nip }}</td>
+					<td>{{ $a->username }}</td>
 					<td>{{ $a->email }}</td>
-					<td>{{ $a->password_placeholder }}</td>
 					<td>
 						<div class="row">
 							<div class="col-4">
