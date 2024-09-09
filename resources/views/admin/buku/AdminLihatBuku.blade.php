@@ -14,7 +14,7 @@
 <div class="row">
 	<div class="col-12">
 		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
-			<h4 class="mb-sm-0 font-size-18">Tambah Buku</h4>
+			<h4 class="mb-sm-0 font-size-18">Detail Buku</h4>
 		</div>
 	</div>
 </div>
@@ -23,8 +23,10 @@
 	<div class="col-12 col-md-6">
 		<div class="card">
 			<div class="card-body">
+				<!-- Display the book details -->
 				<form>
 					<div class="row">
+						<!-- Judul Buku -->
 						<div class="col-md-12 mt-4">
 							<div class="form-group">
 								<label for="judulbuku">Judul Buku</label>
@@ -32,6 +34,7 @@
 							</div>
 						</div>
 
+						<!-- ISBN -->
 						<div class="col-md-12 mt-4">
 							<div class="form-group">
 								<label for="isbn">ISBN</label>
@@ -39,6 +42,7 @@
 							</div>
 						</div>
 
+						<!-- Penerbit -->
 						<div class="col-md-12 mt-4">
 							<div class="form-group">
 								<label for="penerbit">Penerbit</label>
@@ -46,6 +50,7 @@
 							</div>
 						</div>
 
+						<!-- Tahun Terbit -->
 						<div class="col-md-12 mt-4">
 							<div class="form-group">
 								<label for="tahun_terbit">Tahun Terbit</label>
@@ -53,6 +58,7 @@
 							</div>
 						</div>
 
+						<!-- Stok -->
 						<div class="col-md-12 mt-4">
 							<div class="form-group">
 								<label for="stok">Stok</label>
@@ -62,31 +68,50 @@
 
 						<div class="col-md-12 mt-4">
 							<div class="form-group">
-								<label for="sinopsis">Sinopsis</label>
-								<textarea required id="sinopsis" name="sinopsis" class="form-control" rows="3" style="height: 173px;" readonly>{{ $buku->sinopsis }}</textarea>
+								<label for="stok">Penulis</label>
+								<input type="text" class="form-control" id="penulis" name="penulis" placeholder="Masukkan penulis" value="{{ $buku->penulis }}" readonly>
 							</div>
 						</div>
 
 						<div class="col-md-12 mt-4">
 							<div class="form-group">
+								<label for="stok">Halaman</label>
+								<input type="number" class="form-control" id="Halaman" name="Halaman" placeholder="Masukkan Halaman" value="{{ $buku->halaman }}" readonly>
+							</div>
+						</div>
+
+						<!-- Sinopsis -->
+						<div class="col-md-12 mt-4">
+							<div class="form-group">
+								<label for="sinopsis">Sinopsis</label>
+								<textarea required id="sinopsis" name="sinopsis" class="form-control" rows="3" style="height: 173px;" readonly>{{ $buku->deskripsi }}</textarea>
+							</div>
+						</div>
+
+						<!-- Gambar Buku -->
+						<div class="col-md-12 mt-4">
+							<div class="form-group">
 								<label for="gambar">Gambar Buku</label>
 								@if(isset($buku->gambar))
 								<div>
-									<img src="{{ asset('fotobuku/' . $buku->gambar) }}" alt="Gambar Buku" class="img-thumbnail" style="max-width: 200px;">
+									<img src="{{ asset('buku_photos/' . $buku->gambar) }}" alt="Gambar Buku" class="img-thumbnail" style="max-width: 200px;">
 								</div>
 								@endif
 								<input class="form-control mt-2" type="text" id="gambar" name="gambar" value="{{ $buku->gambar }}" readonly>
 							</div>
 						</div>
 
-						<div class="row-12 mt-4">
+						<!-- Back Button -->
+						<div class="col-md-12 mt-4">
 							<a href="/adminBuku" type="button" class="btn btn-success waves-effect waves-light">Kembali</a>
 						</div>
 					</div>
+				</form>
 			</div>
 		</div>
 	</div>
 </div>
+
 
 @section('js')
 <!-- Required datatable js -->

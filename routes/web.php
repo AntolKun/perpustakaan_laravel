@@ -57,7 +57,7 @@ Route::delete("/adminDelete/{id}", [AdminDataController::class, "destroy"])
 Route::get("/adminBuku", [AdminBukuController::class, "index"])
     ->middleware(["auth", "verified"])
     ->name("adminBuku");
-Route::get("/tambahBuku", [AdminBukuController::class, "tambahBuku"])
+Route::get("/tambahBuku", [AdminBukuController::class, "create"])
     ->middleware(["auth", "verified"])
     ->name("tambahBuku");
 Route::post("/storeBuku", [AdminBukuController::class, "store"])
@@ -69,15 +69,15 @@ Route::delete("/bukuDelete/{id}", [AdminBukuController::class, "destroy"])
 Route::get("/adminLihatData/{id}", [AdminDataController::class, "lihatData"])
     ->middleware(["auth", "verified"])
     ->name("adminLihatData");
-Route::get("/adminLihatBuku/{id}", [AdminBukuController::class, "lihatBuku"])
+Route::get("/adminLihatBuku/{id}", [AdminBukuController::class, "show"])
     ->middleware(["auth", "verified"])
     ->name("adminLihatBuku");
-Route::get("/getBukuEdit/{id}", [AdminBukuController::class, "getBukuEdit"])
+Route::get("/getBukuEdit/{id}", [AdminBukuController::class, "edit"])
     ->middleware(["auth", "verified"])
     ->name("getBukuEdit");
-Route::put("/adminEdit/{id}", [AdminDataController::class, "editData"])
+Route::put("/BukuEdit/{id}", [AdminBukuController::class, "update"])
     ->middleware(["auth", "verified"])
-    ->name("adminEdit");
+    ->name("bukuEdit");
 
 //login logout
 Route::get('/login', [LoginController::class, 'index'])

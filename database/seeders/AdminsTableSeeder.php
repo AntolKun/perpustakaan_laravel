@@ -17,20 +17,11 @@ class AdminsTableSeeder extends Seeder
     {
         DB::table('admins')->insert([
             [
-                'nama' => 'Admin One',
-                'username' => 'adminone',
-                'email' => 'adminone@example.com',
-                'password' => Hash::make('password123'), 
-                'foto' => 'admin1.jpg',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'nama' => 'Admin Two',
-                'username' => 'admintwo',
-                'email' => 'admintwo@example.com',
-                'password' => Hash::make('password123'), 
-                'foto' => 'admin2.jpg',
+                'nama' => 'Al Jago Banget',
+                'username' => 'alphian',
+                'email' => 'alphian@google.com',
+                'password' => Hash::make('123456'), 
+                'foto' => '1725713807_aa.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

@@ -10,6 +10,14 @@ class Buku extends Model
     use HasFactory;
 
     protected $fillable = [
-        'judulbuku', 'isbn', 'penerbit', 'tahun_terbit', 'stok', 'sinopsis', 'gambar'
+        'judulbuku',
+        'isbn',
+        'penerbit',
+        'tahun_terbit',
+        'stok',
+        'penulis',
+        'halaman',
+        'deskripsi',
+        'gambar'
     ];
 }

@@ -24,7 +24,7 @@
 
 <div class="row">
 	<div class="col-12">
-		<table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
+		<table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
 			<thead>
 				<tr>
 					<th>Judul Buku</th>
@@ -45,8 +45,14 @@
 					<td>{{ $b->penerbit }}</td>
 					<td>{{ $b->tahun_terbit }}</td>
 					<td>{{ $b->stok }}</td>
-					<td>{{ $b->sinopsis }}</td>
-					<td><img src="{{ url('fotobuku/', $b->gambar) }}" alt="" width="100px"></td>
+					<td>{{ $b->deskripsi }}</td>
+					<td>
+						@if($b->gambar)
+							<img src="{{ asset('buku_photos/' . $b->gambar) }}" alt="{{ $b->nama }}" width="100" height="100">
+						@else
+							No Photo
+						@endif
+					</td>
 					<td>
 						<div class="row">
 							<div class="col-4">

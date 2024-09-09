@@ -28,7 +28,6 @@ class LoginController extends Controller
 
 		if (Auth::attempt($data)) {
 			return redirect('/dashboard')->with('success', 'Berhasil Login!');
-			// return back()->with('success', 'Masuk');
 		} else {
 			return back()->with('error', 'Email atau Password salah!');
 		}
