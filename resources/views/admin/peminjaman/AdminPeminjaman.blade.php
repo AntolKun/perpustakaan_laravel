@@ -11,74 +11,65 @@
 
 @section('content')
 <div class="row">
-	<div class="col-12">
-		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
-			<h4 class="mb-sm-0 font-size-18">Data Buku</h4>
-			<div>
-				<a type="button" class="btn btn-primary waves-effect waves-light" href="/tambahBuku">
-					<i class="bx bx-plus font-size-16 align-middle me-2"></i>Tambah Buku</a>
-			</div>
-		</div>
-	</div>
+  <div class="col-12">
+    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+      <h4 class="mb-sm-0 font-size-18">Persetujuan Peminjaman Buku</h4>
+    </div>
+  </div>
 </div>
 
 <div class="row">
-	<div class="col-12">
-		<div class="table-responsive">
-			<table id="datatable" class="display table table-bordered w-100" style="width:100%; border: 2px solid #3751CF;">
-				<thead style="background-color: #3751CF; color: white; text-align: center;">
-					<tr>
-						<th>Judul Buku</th>
-						<th>ISBN</th>
-						<th>Penerbit</th>
-						<th>Tahun Terbit</th>
-						<th>Stok</th>
-						<th>Sinopsis</th>
-						<th>Foto Buku</th>
-						<th colspan=" 3">Aksi</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach($buku as $b)
-					<tr>
-						<td>{{ $b->judulbuku }}</td>
-						<td>{{ $b->isbn }}</td>
-						<td>{{ $b->penerbit }}</td>
-						<td>{{ $b->tahun_terbit }}</td>
-						<td>{{ $b->stok }}</td>
-						<td>{{ $b->deskripsi }}</td>
-						<td>
-							@if($b->gambar)
-							<img src="{{ asset('buku_photos/' . $b->gambar) }}" alt="{{ $b->nama }}" width="100" height="100">
-							@else
-							No Photo
-							@endif
-						</td>
-						<td>
-							<div class="col-4">
-								<a type="button" class="btn btn-warning waves-effect waves-light" href="/adminLihatBuku/{{ $b->id }}">Lihat</a>
-							</div>
-						</td>
-						<td>
-							<div class="col-4">
-								<a type="button" class="btn btn-primary waves-effect waves-light" href="/getBukuEdit/{{ $b->id }}">Edit</a>
-							</div>
-						</td>
-						<td>
-							<div class="col-4">
-								<form action="{{ url('/bukuDelete') }}/{{ $b->id }}" method="POST">
-									@csrf
-									@method("DELETE")
-									<button type="submit" class="btn btn-danger waves-effect waves-light">Hapus</button>
-								</form>
-							</div>
-						</td>
-					</tr>
-					@endforeach
-				</tbody>
-			</table>
-		</div>
-	</div>
+  <div class="col-12">
+    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+      <thead style="background-color: #3751CF; color: white;">
+        <tr>
+          <th>Judul Buku</th>
+          <th>Nama Peminjam</th>
+          <th>Tanggal Pengajuan</th>
+          <th>Tanggal Peminjaman</th>
+          <th>Tanggal Pengembalian</th>
+          <th>Status</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($peminjaman as $p)
+        <tr>
+          <td>{{ $p->nama }}</td>
+          <td>{{ $p->buku->judulbuku }}</td>
+          <td>{{ \Carbon\Carbon::parse($p->created_at)->format('d-m-Y') }}</td>
+          <td>{{ $p->tanggal_pinjam ? \Carbon\Carbon::parse($p->tanggal_pinjam)->format('d-m-Y') : '' }}</td>
+          <td>{{ $p->tanggal_pengembalian ? \Carbon\Carbon::parse($p->tanggal_pengembalian)->format('d-m-Y') : '' }}</td>
+          <td>
+            @if($p->status == 'disetujui')
+            <span class="badge bg-success">{{ ucfirst($p->status) }}</span>
+            @elseif($p->status == 'ditolak')
+            <span class="badge bg-danger">{{ ucfirst($p->status) }}</span>
+            @else
+            <span class="badge bg-warning">{{ ucfirst($p->status) }}</span>
+            @endif
+          </td>
+          <td>
+            @if($p->status == 'menunggu persetujuan')
+            <div class="d-flex">
+              <form action="{{ route('admin.peminjaman.setujui', $p->id) }}" method="POST" class="me-2">
+                @csrf
+                <button type="submit" class="btn btn-success">Setujui</button>
+              </form>
+              <form action="{{ route('admin.peminjaman.tolak', $p->id) }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-danger">Tolak</button>
+              </form>
+            </div>
+            @else
+            <button class="btn btn-secondary" disabled>Aksi Selesai</button>
+            @endif
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
 </div>
 
 @section('js')
@@ -101,33 +92,24 @@
 
 <!-- Datatable init js -->
 <script src="{{ asset('skoteassets/js/pages/datatables.init.js') }}"></script>
-<!-- <script>
-	$(document).ready(function() {
-		$('#datatable').DataTable({
-			scrollX: true,
-			responsive: false
-		});
-	});
-</script> -->
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @if ($message = session()->get('success'))
 <script type="text/javascript">
-	Swal.fire({
-		icon: 'success',
-		title: 'Sukses!',
-		text: '{{ $message }}',
-	})
+  Swal.fire({
+    icon: 'success',
+    title: 'Sukses!',
+    text: '{{ $message }}',
+  })
 </script>
 @endif
 
 @if ($message = session()->get('error'))
 <script type="text/javascript">
-	Swal.fire({
-		icon: 'error',
-		title: 'Waduh!',
-		text: '{{ $message }}',
-	})
+  Swal.fire({
+    icon: 'error',
+    title: 'Waduh!',
+    text: '{{ $message }}',
+  })
 </script>
 @endif
 

@@ -5,10 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PeminjamanController;
 
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminDataController;
 use App\Http\Controllers\AdminBukuController;
+use App\Http\Controllers\AdminPeminjamanController;
+use App\Http\Controllers\AdminPengembalianController;
+use App\Http\Controllers\AdminLombaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +28,30 @@ use App\Http\Controllers\AdminBukuController;
 Route::get("/dashboard", [DashboardController::class, "index"])
     ->middleware(["auth", "verified"])
     ->name("dashboard");
+
+Route::get('/detailbuku/{id}', [DashboardController::class, 'show'])->name('buku.show');
+
+Route::get('/buku-dipinjam', [DashboardController::class, 'bukuDipinjam'])->name('buku.dipinjam');
+Route::get('/buku-dikembalikan', [DashboardController::class, 'bukuDikembalikan'])->name('buku.dikembalikan');
+
+Route::middleware('auth')->group(function () {
+    Route::get('peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
+    Route::get('peminjaman/create/{buku_id}', [PeminjamanController::class, 'create'])->name('peminjaman.create');
+    Route::post('peminjaman/store', [PeminjamanController::class, 'store'])->name('peminjaman.store');
+    Route::get('peminjaman/{id}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
+
+    // Admin routes to approve/reject
+    Route::post('peminjaman/approve/{id}', [PeminjamanController::class, 'approve'])->name('peminjaman.approve');
+    Route::post('peminjaman/reject/{id}', [PeminjamanController::class, 'reject'])->name('peminjaman.reject');
+    Route::get('/adminPengembalian', [AdminPengembalianController::class, 'index'])->name('admin.pengembalian.index');
+    Route::post('/adminPengembalian/return/{id}', [AdminPengembalianController::class, 'store'])->name('admin.pengembalian.store');
+});
+
+
+
+
+
+    
 
 // Admin Dashboard
 Route::get("/adminDashboard", [AdminDashboardController::class, "index"])
@@ -78,6 +106,15 @@ Route::get("/getBukuEdit/{id}", [AdminBukuController::class, "edit"])
 Route::put("/BukuEdit/{id}", [AdminBukuController::class, "update"])
     ->middleware(["auth", "verified"])
     ->name("bukuEdit");
+
+// Data Peminjaman Routes
+Route::get('/adminPeminjaman', [AdminPeminjamanController::class, 'index'])->middleware(["auth", "verified"])->name('admin.peminjaman');
+Route::post('/peminjaman/setujui/{id}', [AdminPeminjamanController::class, 'setujui'])->middleware(["auth", "verified"])->name('admin.peminjaman.setujui');
+Route::post('/peminjaman/tolak/{id}', [AdminPeminjamanController::class, 'tolak'])->middleware(["auth", "verified"])->name('admin.peminjaman.tolak');
+
+Route::get('/competitions', [AdminLombaController::class, 'index'])->name('competitions.index');
+Route::post('/competitionsSimpan', [AdminLombaController::class, 'store'])->name('competitions.store');
+Route::put('/competitions/{id}', [AdminLombaController::class, 'update'])->name('competitions.update');
 
 //login logout
 Route::get('/login', [LoginController::class, 'index'])

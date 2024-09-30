@@ -112,9 +112,9 @@
 						</li>
 
 						<li>
-							<a href="/dashboard" class="waves-effect">
+							<a href="/adminPeminjaman" class="waves-effect">
 								<i class="bx bx-file"></i>
-								<span key="t-file-manager">Peminjaman Buku</span>
+								<span key="t-file-manager">Data Peminjaman Buku</span>
 							</a>
 						</li>
 
