@@ -13,6 +13,8 @@ use App\Http\Controllers\AdminBukuController;
 use App\Http\Controllers\AdminPeminjamanController;
 use App\Http\Controllers\AdminPengembalianController;
 use App\Http\Controllers\AdminLombaController;
+use App\Http\Controllers\AdminKategoriLombaController;
+use App\Http\Controllers\AdminPenilaianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,10 +31,10 @@ Route::get("/dashboard", [DashboardController::class, "index"])
     ->middleware(["auth", "verified"])
     ->name("dashboard");
 
-Route::get('/detailbuku/{id}', [DashboardController::class, 'show'])->name('buku.show');
+Route::get('/detailbuku/{id}', [DashboardController::class, 'show'])->middleware(["auth", "verified"])->name('buku.show');
 
-Route::get('/buku-dipinjam', [DashboardController::class, 'bukuDipinjam'])->name('buku.dipinjam');
-Route::get('/buku-dikembalikan', [DashboardController::class, 'bukuDikembalikan'])->name('buku.dikembalikan');
+Route::get('/buku-dipinjam', [DashboardController::class, 'bukuDipinjam'])->middleware(["auth", "verified"])->name('buku.dipinjam');
+Route::get('/buku-dikembalikan', [DashboardController::class, 'bukuDikembalikan'])->middleware(["auth", "verified"])->name('buku.dikembalikan');
 
 Route::middleware('auth')->group(function () {
     Route::get('peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
@@ -47,11 +49,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/adminPengembalian/return/{id}', [AdminPengembalianController::class, 'store'])->name('admin.pengembalian.store');
 });
 
-
-
-
-
-    
 
 // Admin Dashboard
 Route::get("/adminDashboard", [AdminDashboardController::class, "index"])
@@ -112,9 +109,25 @@ Route::get('/adminPeminjaman', [AdminPeminjamanController::class, 'index'])->mid
 Route::post('/peminjaman/setujui/{id}', [AdminPeminjamanController::class, 'setujui'])->middleware(["auth", "verified"])->name('admin.peminjaman.setujui');
 Route::post('/peminjaman/tolak/{id}', [AdminPeminjamanController::class, 'tolak'])->middleware(["auth", "verified"])->name('admin.peminjaman.tolak');
 
-Route::get('/competitions', [AdminLombaController::class, 'index'])->name('competitions.index');
-Route::post('/competitionsSimpan', [AdminLombaController::class, 'store'])->name('competitions.store');
-Route::put('/competitions/{id}', [AdminLombaController::class, 'update'])->name('competitions.update');
+// Data Lomba Routes
+Route::get('/adminLomba', [AdminLombaController::class, 'index'])->middleware(["auth", "verified"])->name('lomba.index');
+Route::post('/adminLomba/store', [AdminLombaController::class, 'store'])->middleware(["auth", "verified"])->name('lomba.store');
+Route::post('/adminLomba/update/{id}', [AdminLombaController::class, 'update'])->middleware(["auth", "verified"])->name('lomba.update');
+Route::delete('/adminLomba/delete/{id}', [AdminLombaController::class, 'destroy'])->middleware(["auth", "verified"])->name('lomba.destroy');
+Route::get('/adminLomba/kategori/{id}', [AdminLombaController::class, 'showKategori'])->name('adminLomba.kategori');
+
+
+Route::post('/adminLomba/kategori/store', [AdminKategoriLombaController::class, 'store'])->middleware(["auth", "verified"])->name('adminLomba.kategori.store');
+Route::get('/lomba/{lombaId}/kategori-lomba/create', [AdminKategoriLombaController::class, 'create'])->middleware(["auth", "verified"])->name('adminLomba.kategori.create');
+Route::get('/adminLomba/kategori/edit/{id}', [AdminKategoriLombaController::class, 'edit'])->middleware(["auth", "verified"])->name('adminLomba.kategori.edit');
+Route::post('/adminLomba/kategori/update/{id}', [AdminKategoriLombaController::class, 'update'])->middleware(["auth", "verified"])->name('adminLomba.kategori.update');
+Route::delete('/adminLomba/kategori/delete/{id}', [AdminKategoriLombaController::class, 'destroy'])->middleware(["auth", "verified"])->name('adminLomba.kategori.delete');
+
+
+
+
+
+
 
 //login logout
 Route::get('/login', [LoginController::class, 'index'])

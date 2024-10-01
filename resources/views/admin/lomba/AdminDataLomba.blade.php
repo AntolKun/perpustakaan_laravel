@@ -25,40 +25,33 @@
 
 <div class="row">
   <div class="col-12">
-    @if ($message = session()->get('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      {{ $message }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
       <thead style="background-color: #3751CF; color: white;">
         <tr>
           <th>Gambar</th>
           <th>Judul</th>
           <th>Deskripsi</th>
-          <th>Kategori</th>
           <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
-        @foreach($lomba as $l)
+        @foreach($lombas as $lomba)
         <tr>
           <td>
-            @if($l->gambar)
-            <img src="{{ asset('lomba_images/' . $l->gambar) }}" alt="{{ $l->judul }}" width="100" height="100">
+            @if($lomba->gambar)
+            <img src="{{ asset('admin_lomba/' . $lomba->gambar) }}" alt="{{ $lomba->judul }}" width="100" height="100">
             @else
             No Image
             @endif
           </td>
-          <td>{{ $l->judul }}</td>
-          <td>{{ $l->deskripsi }}</td>
-          <td>{{ $l->kategori }}</td>
+          <td>{{ $lomba->judul }}</td>
+          <td>{{ $lomba->deskripsi }}</td>
           <td>
-            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editCompetitionModal{{ $l->id }}">
+            <a href="{{ url('/adminLomba/kategori', $lomba->id) }}" class="btn btn-info">Kategori Lomba</a>
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editCompetitionModal{{ $lomba->id }}">
               Edit
             </button>
-            <form action="{{ url('/competitionDelete', $l->id) }}" method="POST" style="display:inline-block;">
+            <form action="{{ url('/adminLomba/delete', $lomba->id) }}" method="POST" style="display:inline-block;">
               @csrf
               @method('DELETE')
               <button type="submit" class="btn btn-danger">Hapus</button>
@@ -71,40 +64,31 @@
   </div>
 </div>
 
-
-@foreach($lomba as $l)
+@foreach($lombas as $lomba)
 <!-- Modal Edit Lomba -->
-<div class="modal fade" id="editCompetitionModal{{ $l->id }}" tabindex="-1" aria-labelledby="editCompetitionModalLabel{{ $l->id }}" aria-hidden="true">
+<div class="modal fade" id="editCompetitionModal{{ $lomba->id }}" tabindex="-1" aria-labelledby="editCompetitionModalLabel{{ $lomba->id }}" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form action="{{ url('/competitionUpdate', $l->id) }}" method="POST" enctype="multipart/form-data">
+      <form action="{{ url('/adminLomba/update', $lomba->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="modal-header">
-          <h5 class="modal-title" id="editCompetitionModalLabel{{ $l->id }}">Edit Lomba</h5>
+          <h5 class="modal-title" id="editCompetitionModalLabel{{ $lomba->id }}">Edit Lomba</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="mb-3">
             <label for="judul" class="form-label">Judul Lomba</label>
-            <input type="text" class="form-control" id="judul" name="judul" value="{{ $l->judul }}" required>
+            <input type="text" class="form-control" id="judul" name="judul" value="{{ $lomba->judul }}" required>
           </div>
           <div class="mb-3">
             <label for="deskripsi" class="form-label">Deskripsi</label>
-            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required>{{ $l->deskripsi }}</textarea>
-          </div>
-          <div class="mb-3">
-            <label for="kategori" class="form-label">Kategori</label>
-            <select class="form-select" id="kategori" name="kategori" required>
-              <option value="Baca Puisi" @if($l->kategori == 'Baca Puisi') selected @endif>Baca Puisi</option>
-              <option value="Story Telling" @if($l->kategori == 'Story Telling') selected @endif>Story Telling</option>
-              <option value="Poster" @if($l->kategori == 'Poster') selected @endif>Poster</option>
-            </select>
+            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required>{{ $lomba->deskripsi }}</textarea>
           </div>
           <div class="mb-3">
             <label for="gambar" class="form-label">Gambar</label>
             <input type="file" class="form-control" id="gambar" name="gambar">
-            @if($l->gambar)
-            <img src="{{ asset('lomba_images/' . $l->gambar) }}" alt="{{ $l->judul }}" width="100" height="100">
+            @if($lomba->gambar)
+            <img class="mt-2 items-center" src="{{ asset('admin_lomba/' . $lomba->gambar) }}" alt="{{ $lomba->judul }}" width="100" height="100">
             @endif
           </div>
         </div>
@@ -118,13 +102,11 @@
 </div>
 @endforeach
 
-
-
 <!-- Modal Tambah Lomba -->
 <div class="modal fade" id="addCompetitionModal" tabindex="-1" aria-labelledby="addCompetitionModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form action="{{ url('/competitionsSimpan') }}" method="POST" enctype="multipart/form-data">
+      <form action="{{ url('/adminLomba/store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="modal-header">
           <h5 class="modal-title" id="addCompetitionModalLabel">Tambah Lomba</h5>
@@ -138,14 +120,6 @@
           <div class="mb-3">
             <label for="deskripsi" class="form-label">Deskripsi</label>
             <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required></textarea>
-          </div>
-          <div class="mb-3">
-            <label for="kategori" class="form-label">Kategori</label>
-            <select class="form-select" id="kategori" name="kategori" required>
-              <option value="Baca Puisi">Baca Puisi</option>
-              <option value="Story Telling">Story Telling</option>
-              <option value="Poster">Poster</option>
-            </select>
           </div>
           <div class="mb-3">
             <label for="gambar" class="form-label">Gambar</label>
@@ -176,15 +150,12 @@
 <script src="{{ asset('skoteassets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('skoteassets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('skoteassets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-
 <!-- Responsive examples -->
 <script src="{{ asset('skoteassets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('skoteassets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 
-<!-- Datatable init js -->
 <script src="{{ asset('skoteassets/js/pages/datatables.init.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 @if ($message = session()->get('success'))
 <script type="text/javascript">
   Swal.fire({
