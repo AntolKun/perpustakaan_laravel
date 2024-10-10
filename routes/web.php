@@ -15,6 +15,7 @@ use App\Http\Controllers\AdminPengembalianController;
 use App\Http\Controllers\AdminLombaController;
 use App\Http\Controllers\AdminKategoriLombaController;
 use App\Http\Controllers\AdminPenilaianController;
+use App\Http\Controllers\LombaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,9 @@ Route::middleware('auth')->group(function () {
     Route::post('peminjaman/reject/{id}', [PeminjamanController::class, 'reject'])->name('peminjaman.reject');
     Route::get('/adminPengembalian', [AdminPengembalianController::class, 'index'])->name('admin.pengembalian.index');
     Route::post('/adminPengembalian/return/{id}', [AdminPengembalianController::class, 'store'])->name('admin.pengembalian.store');
+
+    Route::get('/lomba', [LombaController::class, 'index'])->name('user.lomba');
+    Route::get('/lomba/{id}', [LombaController::class, 'detail'])->name('lomba.detail');
 });
 
 
@@ -116,13 +120,20 @@ Route::post('/adminLomba/update/{id}', [AdminLombaController::class, 'update'])-
 Route::delete('/adminLomba/delete/{id}', [AdminLombaController::class, 'destroy'])->middleware(["auth", "verified"])->name('lomba.destroy');
 Route::get('/adminLomba/kategori/{id}', [AdminLombaController::class, 'showKategori'])->name('adminLomba.kategori');
 
-
+// Kategori Lomba Routes
 Route::post('/adminLomba/kategori/store', [AdminKategoriLombaController::class, 'store'])->middleware(["auth", "verified"])->name('adminLomba.kategori.store');
 Route::get('/lomba/{lombaId}/kategori-lomba/create', [AdminKategoriLombaController::class, 'create'])->middleware(["auth", "verified"])->name('adminLomba.kategori.create');
 Route::get('/adminLomba/kategori/edit/{id}', [AdminKategoriLombaController::class, 'edit'])->middleware(["auth", "verified"])->name('adminLomba.kategori.edit');
 Route::post('/adminLomba/kategori/update/{id}', [AdminKategoriLombaController::class, 'update'])->middleware(["auth", "verified"])->name('adminLomba.kategori.update');
 Route::delete('/adminLomba/kategori/delete/{id}', [AdminKategoriLombaController::class, 'destroy'])->middleware(["auth", "verified"])->name('adminLomba.kategori.delete');
 
+// Penilaian Lomba Routes
+Route::get('/adminPenilaian/{kategoriLombaId}', [AdminPenilaianController::class, 'index'])->name('adminPenilaian.index');
+Route::get('/adminPenilaian/create/{kategoriLombaId}', [AdminPenilaianController::class, 'create'])->name('adminPenilaian.create');
+Route::post('/adminPenilaian/store/{kategoriLombaId}', [AdminPenilaianController::class, 'store'])->name('adminPenilaian.store');
+Route::get('/adminPenilaian/edit/{id}', [AdminPenilaianController::class, 'edit'])->name('adminPenilaian.edit');
+Route::post('/adminPenilaian/update/{id}', [AdminPenilaianController::class, 'update'])->name('adminPenilaian.update');
+Route::delete('/adminPenilaian/delete/{id}', [AdminPenilaianController::class, 'destroy'])->name('adminPenilaian.delete');
 
 
 
