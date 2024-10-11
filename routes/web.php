@@ -16,6 +16,7 @@ use App\Http\Controllers\AdminLombaController;
 use App\Http\Controllers\AdminKategoriLombaController;
 use App\Http\Controllers\AdminPenilaianController;
 use App\Http\Controllers\LombaController;
+use App\Http\Controllers\PendaftaranLombaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/lomba', [LombaController::class, 'index'])->name('user.lomba');
     Route::get('/lomba/{id}', [LombaController::class, 'detail'])->name('lomba.detail');
+    Route::post('/lomba/{id}/daftar', [PendaftaranLombaController::class, 'store'])->name('lomba.daftar.store');
+    Route::get('/lomba/{id}/peserta', [LombaController::class, 'showPeserta'])->name('lomba.peserta');
 });
 
 
@@ -119,6 +122,8 @@ Route::post('/adminLomba/store', [AdminLombaController::class, 'store'])->middle
 Route::post('/adminLomba/update/{id}', [AdminLombaController::class, 'update'])->middleware(["auth", "verified"])->name('lomba.update');
 Route::delete('/adminLomba/delete/{id}', [AdminLombaController::class, 'destroy'])->middleware(["auth", "verified"])->name('lomba.destroy');
 Route::get('/adminLomba/kategori/{id}', [AdminLombaController::class, 'showKategori'])->name('adminLomba.kategori');
+Route::get('/adminLomba/peserta/{id}', [AdminLombaController::class, 'showPeserta'])->name('admin.lomba.peserta');
+
 
 // Kategori Lomba Routes
 Route::post('/adminLomba/kategori/store', [AdminKategoriLombaController::class, 'store'])->middleware(["auth", "verified"])->name('adminLomba.kategori.store');
@@ -134,6 +139,9 @@ Route::post('/adminPenilaian/store/{kategoriLombaId}', [AdminPenilaianController
 Route::get('/adminPenilaian/edit/{id}', [AdminPenilaianController::class, 'edit'])->name('adminPenilaian.edit');
 Route::post('/adminPenilaian/update/{id}', [AdminPenilaianController::class, 'update'])->name('adminPenilaian.update');
 Route::delete('/adminPenilaian/delete/{id}', [AdminPenilaianController::class, 'destroy'])->name('adminPenilaian.delete');
+
+// Admin Peserta Lomba
+Route::get('/adminLomba/{lomba}/kategori/{kategori}/peserta', [AdminLombaController::class, 'viewPeserta'])->name('adminLomba.kategori.peserta');
 
 
 

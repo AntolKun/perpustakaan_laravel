@@ -52,6 +52,9 @@
 
             <!-- Tombol Lihat Penilaian -->
             <a href="{{ route('adminPenilaian.index', $kategori->id) }}" class="btn btn-info">Lihat Penilaian</a>
+            <a href="{{ route('adminLomba.kategori.peserta', ['lomba' => $lomba->id, 'kategori' => $kategori->id]) }}" class="btn btn-success">
+              Lihat Peserta
+            </a>
           </td>
         </tr>
         @endforeach

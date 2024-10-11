@@ -20,5 +20,10 @@ class KategoriLomba extends Model
     {
         return $this->hasMany(Penilaian::class);
     }
+
+    public function pendaftarans()
+    {
+        return $this->hasMany(PendaftaranLomba::class, 'kategori_lomba_id', 'id');
+    }
 }
 

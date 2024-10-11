@@ -45,7 +45,7 @@
             @endif
           </td>
           <td>{{ $lomba->judul }}</td>
-          <td>{{ $lomba->deskripsi }}</td>
+          <td class="text-truncate" style="max-width: 200px;">{{ $lomba->deskripsi }}</td>
           <td>
             <a href="{{ url('/adminLomba/kategori', $lomba->id) }}" class="btn btn-info">Kategori Lomba</a>
             <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editCompetitionModal{{ $lomba->id }}">
@@ -82,7 +82,7 @@
           </div>
           <div class="mb-3">
             <label for="deskripsi" class="form-label">Deskripsi</label>
-            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required>{{ $lomba->deskripsi }}</textarea>
+            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="10" required>{{ $lomba->deskripsi }}</textarea>
           </div>
           <div class="mb-3">
             <label for="gambar" class="form-label">Gambar</label>
@@ -119,7 +119,7 @@
           </div>
           <div class="mb-3">
             <label for="deskripsi" class="form-label">Deskripsi</label>
-            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required></textarea>
+            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="10" required></textarea>
           </div>
           <div class="mb-3">
             <label for="gambar" class="form-label">Gambar</label>

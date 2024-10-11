@@ -25,7 +25,7 @@
           <p class="card-text" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
             {{ $lomba->deskripsi }}
           </p>
-          <a href="#" class="btn btn-primary mt-auto position-absolute bottom-0 end-0 m-3">More Info</a> <!-- Tombol di pojok kanan bawah -->
+          <a href="{{ route('lomba.detail', $lomba->id) }}" class="btn btn-primary mt-auto position-absolute bottom-0 end-0 m-3">More Info</a> <!-- Tombol di pojok kanan bawah -->
         </div>
       </div>
     </div>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lomba;
+use App\Models\KategoriLomba;
+use App\Models\PendaftaranLomba;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -110,5 +112,18 @@ class AdminLombaController extends Controller
 
         // Kirim data lomba dan kategori lomba ke view
         return view('admin.lomba.kategori.KategoriLomba', compact('lomba', 'kategoriLombas'));
+    }
+
+    public function viewPeserta($lombaId, $kategoriId)
+    {
+        $lomba = Lomba::findOrFail($lombaId);
+        $kategori = KategoriLomba::findOrFail($kategoriId);
+
+        // Retrieve the participants for the specified category
+        $pesertaLombas = PendaftaranLomba::where('lomba_id', $lombaId)
+            ->where('kategori_lomba_id', $kategoriId)
+            ->get();
+
+        return view('admin.lomba.kategori.peserta.PesertaLomba', compact('lomba', 'kategori', 'pesertaLombas'));
     }
 }
