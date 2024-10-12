@@ -15,6 +15,7 @@ use App\Http\Controllers\AdminPengembalianController;
 use App\Http\Controllers\AdminLombaController;
 use App\Http\Controllers\AdminKategoriLombaController;
 use App\Http\Controllers\AdminPenilaianController;
+use App\Http\Controllers\AdminNilaiSiswaController;
 use App\Http\Controllers\LombaController;
 use App\Http\Controllers\PendaftaranLombaController;
 
@@ -29,16 +30,18 @@ use App\Http\Controllers\PendaftaranLombaController;
 |
 */
 //dashboard
-Route::get("/dashboard", [DashboardController::class, "index"])
+
+
+Route::middleware('auth')->group(function () {
+    Route::get("/dashboard", [DashboardController::class, "index"])
     ->middleware(["auth", "verified"])
     ->name("dashboard");
 
-Route::get('/detailbuku/{id}', [DashboardController::class, 'show'])->middleware(["auth", "verified"])->name('buku.show');
+    Route::get('/detailbuku/{id}', [DashboardController::class, 'show'])->middleware(["auth", "verified"])->name('buku.show');
 
-Route::get('/buku-dipinjam', [DashboardController::class, 'bukuDipinjam'])->middleware(["auth", "verified"])->name('buku.dipinjam');
-Route::get('/buku-dikembalikan', [DashboardController::class, 'bukuDikembalikan'])->middleware(["auth", "verified"])->name('buku.dikembalikan');
+    Route::get('/buku-dipinjam', [DashboardController::class, 'bukuDipinjam'])->middleware(["auth", "verified"])->name('buku.dipinjam');
+    Route::get('/buku-dikembalikan', [DashboardController::class, 'bukuDikembalikan'])->middleware(["auth", "verified"])->name('buku.dikembalikan');
 
-Route::middleware('auth')->group(function () {
     Route::get('peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
     Route::get('peminjaman/create/{buku_id}', [PeminjamanController::class, 'create'])->name('peminjaman.create');
     Route::post('peminjaman/store', [PeminjamanController::class, 'store'])->name('peminjaman.store');
@@ -54,6 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/lomba/{id}', [LombaController::class, 'detail'])->name('lomba.detail');
     Route::post('/lomba/{id}/daftar', [PendaftaranLombaController::class, 'store'])->name('lomba.daftar.store');
     Route::get('/lomba/{id}/peserta', [LombaController::class, 'showPeserta'])->name('lomba.peserta');
+    Route::get('/lomba/{id}/pemenang', [LombaController::class, 'pengumumanPemenang'])->name('lomba.pemenang');
+
 });
 
 
@@ -85,7 +90,7 @@ Route::delete("/adminDelete/{id}", [AdminDataController::class, "destroy"])
     ->middleware(["auth", "verified"])
     ->name("adminDelete");
 
-//Data Buku Routes
+// Admin Data Buku Routes
 Route::get("/adminBuku", [AdminBukuController::class, "index"])
     ->middleware(["auth", "verified"])
     ->name("adminBuku");
@@ -111,12 +116,12 @@ Route::put("/BukuEdit/{id}", [AdminBukuController::class, "update"])
     ->middleware(["auth", "verified"])
     ->name("bukuEdit");
 
-// Data Peminjaman Routes
+// Admin Data Peminjaman Routes
 Route::get('/adminPeminjaman', [AdminPeminjamanController::class, 'index'])->middleware(["auth", "verified"])->name('admin.peminjaman');
 Route::post('/peminjaman/setujui/{id}', [AdminPeminjamanController::class, 'setujui'])->middleware(["auth", "verified"])->name('admin.peminjaman.setujui');
 Route::post('/peminjaman/tolak/{id}', [AdminPeminjamanController::class, 'tolak'])->middleware(["auth", "verified"])->name('admin.peminjaman.tolak');
 
-// Data Lomba Routes
+// Admin Data Lomba Routes
 Route::get('/adminLomba', [AdminLombaController::class, 'index'])->middleware(["auth", "verified"])->name('lomba.index');
 Route::post('/adminLomba/store', [AdminLombaController::class, 'store'])->middleware(["auth", "verified"])->name('lomba.store');
 Route::post('/adminLomba/update/{id}', [AdminLombaController::class, 'update'])->middleware(["auth", "verified"])->name('lomba.update');
@@ -125,14 +130,14 @@ Route::get('/adminLomba/kategori/{id}', [AdminLombaController::class, 'showKateg
 Route::get('/adminLomba/peserta/{id}', [AdminLombaController::class, 'showPeserta'])->name('admin.lomba.peserta');
 
 
-// Kategori Lomba Routes
+// Admin Kategori Lomba Routes
 Route::post('/adminLomba/kategori/store', [AdminKategoriLombaController::class, 'store'])->middleware(["auth", "verified"])->name('adminLomba.kategori.store');
 Route::get('/lomba/{lombaId}/kategori-lomba/create', [AdminKategoriLombaController::class, 'create'])->middleware(["auth", "verified"])->name('adminLomba.kategori.create');
 Route::get('/adminLomba/kategori/edit/{id}', [AdminKategoriLombaController::class, 'edit'])->middleware(["auth", "verified"])->name('adminLomba.kategori.edit');
 Route::post('/adminLomba/kategori/update/{id}', [AdminKategoriLombaController::class, 'update'])->middleware(["auth", "verified"])->name('adminLomba.kategori.update');
 Route::delete('/adminLomba/kategori/delete/{id}', [AdminKategoriLombaController::class, 'destroy'])->middleware(["auth", "verified"])->name('adminLomba.kategori.delete');
 
-// Penilaian Lomba Routes
+// Admin Penilaian Lomba Routes
 Route::get('/adminPenilaian/{kategoriLombaId}', [AdminPenilaianController::class, 'index'])->name('adminPenilaian.index');
 Route::get('/adminPenilaian/create/{kategoriLombaId}', [AdminPenilaianController::class, 'create'])->name('adminPenilaian.create');
 Route::post('/adminPenilaian/store/{kategoriLombaId}', [AdminPenilaianController::class, 'store'])->name('adminPenilaian.store');
@@ -142,10 +147,16 @@ Route::delete('/adminPenilaian/delete/{id}', [AdminPenilaianController::class, '
 
 // Admin Peserta Lomba
 Route::get('/adminLomba/{lomba}/kategori/{kategori}/peserta', [AdminLombaController::class, 'viewPeserta'])->name('adminLomba.kategori.peserta');
+Route::get('/nilai-siswa/{pendaftaran_id}/{kategori_lomba_id}', [AdminNilaiSiswaController::class, 'show'])->name('nilai-siswa.show');
+Route::post('/nilai-siswa', [AdminNilaiSiswaController::class, 'store'])->name('nilai-siswa.store');
 
 
 
 
+
+Route::get('/admin/login', [LoginController::class, 'loginAdmin'])->name('admin.login');
+Route::post('/admin/actionAdminLogin', [LoginController::class, 'actionAdminLogin'])->name('actionAdminLogin');
+Route::get('/admin/actionLogout', [LoginController::class, 'actionLogout'])->middleware(['auth:admin'])->name('admin.actionLogout');
 
 
 //login logout

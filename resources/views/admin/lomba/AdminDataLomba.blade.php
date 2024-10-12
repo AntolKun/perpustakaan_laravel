@@ -25,8 +25,8 @@
 
 <div class="row">
   <div class="col-12">
-    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
-      <thead style="background-color: #3751CF; color: white;">
+    <table id="datatable" class="display table table-bordered w-100" style="width:100%; border: 2px solid #3751CF;">
+      <thead style="background-color: #3751CF; color: white; text-align: center;">
         <tr>
           <th>Gambar</th>
           <th>Judul</th>

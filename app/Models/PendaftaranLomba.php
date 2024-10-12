@@ -27,5 +27,10 @@ class PendaftaranLomba extends Model
     {
         return $this->belongsTo(KategoriLomba::class);
     }
+
+    public function nilaiSiswa()
+    {
+        return $this->hasOne(NilaiSiswa::class, 'pendaftaran_id');
+    }
 }
 

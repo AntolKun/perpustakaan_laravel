@@ -84,7 +84,7 @@
 							</a>
 						</li>
 						<li class="sidebar-item">
-							<a class="sidebar-link" href="index4.html" aria-expanded="false">
+							<a class="sidebar-link" href="/lomba" aria-expanded="false">
 								<span>
 									<i class="ti ti-medal"></i>
 								</span>

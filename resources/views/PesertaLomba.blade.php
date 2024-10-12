@@ -16,7 +16,7 @@
         <th>Kelas</th>
         <th>Kategori Lomba</th>
         <th>Nomor Telepon</th>
-        <th>Bukti Pembayaran</th>
+        <!-- <th>Bukti Pembayaran</th> -->
       </tr>
     </thead>
     <tbody>
@@ -26,16 +26,6 @@
         <td>{{ $p->kelas }}</td>
         <td>{{ $p->kategoriLomba->nama_kategori }}</td>
         <td>{{ $p->nomor_telepon }}</td>
-        <td>
-          <!-- Tombol untuk melihat bukti pembayaran -->
-          @if($p->bukti_pembayaran)
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buktiModal" data-src="{{ asset('bukti_pembayaran/' . $p->bukti_pembayaran) }}">
-            Lihat Bukti
-          </button>
-          @else
-          Tidak ada bukti
-          @endif
-        </td>
       </tr>
       @endforeach
     </tbody>

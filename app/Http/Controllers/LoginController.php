@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -19,6 +20,15 @@ class LoginController extends Controller
 		}
 	}
 
+	public function loginAdmin()
+	{
+		if (Auth::check()) {
+			return redirect('/adminDashboard');
+		} else {
+			return view('auth/AdminLogin');
+		}
+	}
+
 	public function actionLogin(Request $request)
 	{
 		$data = [
@@ -30,6 +40,18 @@ class LoginController extends Controller
 			return redirect('/dashboard')->with('success', 'Berhasil Login!');
 		} else {
 			return back()->with('error', 'Email atau Password salah!');
+		}
+	}
+
+	public function actionAdminLogin(Request $request)
+	{
+		$admin = Admin::where('email', $request->email)->first();
+
+		if ($admin && Hash::check($request->password, $admin->password)) {
+			Auth::login($admin);
+			return redirect('/adminDashboard')->with('success', 'Berhasil Login sebagai Admin!');
+		} else {
+			return back()->with('error', 'Email atau Password Admin salah!');
 		}
 	}
 

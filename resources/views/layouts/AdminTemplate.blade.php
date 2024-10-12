@@ -119,21 +119,14 @@
 						</li>
 
 						<li>
-							<a href="/dashboard" class="waves-effect">
+							<a href="/adminPengembalian" class="waves-effect">
 								<i class="bx bx-file"></i>
 								<span key="t-file-manager">Pengembalian Buku</span>
 							</a>
 						</li>
 
 						<li>
-							<a href="/dashboard" class="waves-effect">
-								<i class="bx bx-file"></i>
-								<span key="t-file-manager">Denda</span>
-							</a>
-						</li>
-
-						<li>
-							<a href="/dashboard" class="waves-effect">
+							<a href="/adminLomba" class="waves-effect">
 								<i class="bx bx-file"></i>
 								<span key="t-file-manager">Lomba Literasi</span>
 							</a>

@@ -29,7 +29,7 @@
     <div class="col-md-8 d-flex justify-content-end" style="margin-top: 20px;">
       <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#daftarLombaModal">Daftar Lomba</button>
       <a href="{{ route('lomba.peserta', $lomba->id) }}" class="btn btn-secondary me-2">Daftar Peserta</a>
-      <a href="" class="btn btn-success">Pengumuman Pemenang</a>
+      <a href="{{ route('lomba.pemenang', $lomba->id) }}" class="btn btn-success">Pengumuman Pemenang</a>
     </div>
   </div>
 </div>

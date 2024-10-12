@@ -21,13 +21,15 @@
 
 <div class="row">
   <div class="col-12">
-    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
-      <thead style="background-color: #3751CF; color: white;">
+    <table id="datatable" class="display table table-bordered w-100" style="width:100%; border: 2px solid #3751CF;">
+      <thead style="background-color: #3751CF; color: white; text-align: center;">
         <tr>
           <th>Nama Peserta</th>
           <th>Kelas</th>
           <th>Nomor Telepon</th>
           <th>Bukti Pembayaran</th>
+          <th>Total Nilai</th>
+          <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
@@ -45,10 +47,25 @@
             Tidak ada bukti
             @endif
           </td>
+          <td>
+            @if($peserta->nilaiSiswa)
+            {{ $peserta->nilaiSiswa->total_nilai }}
+            @else
+            Belum Dinilai
+            @endif
+          </td>
+          <td>
+            @if($peserta->nilaiSiswa)
+            <a href="{{ route('nilai-siswa.show', ['pendaftaran_id' => $peserta->id, 'kategori_lomba_id' => $kategori->id]) }}" class="btn btn-warning">Edit Nilai</a>
+            @else
+            <a href="{{ route('nilai-siswa.show', ['pendaftaran_id' => $peserta->id, 'kategori_lomba_id' => $kategori->id]) }}" class="btn btn-success">Nilai</a>
+            @endif
+          </td>
         </tr>
         @endforeach
       </tbody>
     </table>
+
   </div>
 </div>
 

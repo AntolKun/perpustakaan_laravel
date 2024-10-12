@@ -20,8 +20,8 @@
 
 <div class="row">
   <div class="col-12">
-    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
-      <thead style="background-color: #3751CF; color: white;">
+    <table id="datatable" class="display table table-bordered w-100" style="width:100%; border: 2px solid #3751CF;">
+      <thead style="background-color: #3751CF; color: white; text-align: center;">
         <tr>
           <th>Judul Buku</th>
           <th>Nama Peminjam</th>
@@ -90,3 +90,35 @@
   </div>
 </div>
 @endsection
+
+@section('js')
+<!-- Required datatable js -->
+<script src="{{ asset('skoteassets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('skoteassets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<!-- Responsive examples -->
+<script src="{{ asset('skoteassets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('skoteassets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+
+<script src="{{ asset('skoteassets/js/pages/datatables.init.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if ($message = session()->get('success'))
+<script type="text/javascript">
+  Swal.fire({
+    icon: 'success',
+    title: 'Sukses!',
+    text: '{{ $message }}',
+  })
+</script>
+@endif
+
+@if ($message = session()->get('error'))
+<script type="text/javascript">
+  Swal.fire({
+    icon: 'error',
+    title: 'Waduh!',
+    text: '{{ $message }}',
+  })
+</script>
+@endif
+@stop

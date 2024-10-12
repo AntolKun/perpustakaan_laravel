@@ -119,11 +119,13 @@ class AdminLombaController extends Controller
         $lomba = Lomba::findOrFail($lombaId);
         $kategori = KategoriLomba::findOrFail($kategoriId);
 
-        // Retrieve the participants for the specified category
+        // Retrieve the participants along with their grades (nilai siswa)
         $pesertaLombas = PendaftaranLomba::where('lomba_id', $lombaId)
             ->where('kategori_lomba_id', $kategoriId)
+            ->with('nilaiSiswa') // Load nilaiSiswa relationship
             ->get();
 
         return view('admin.lomba.kategori.peserta.PesertaLomba', compact('lomba', 'kategori', 'pesertaLombas'));
     }
+
 }
