@@ -17,6 +17,7 @@ class RegisterController extends Controller
 		public function store(Request $request)
 		{
 				$validated = $request->validate([
+						'nama' => ['required', 'string', 'max:255'],
 						'username' => ['required', 'string', 'max:255'],
 						'email' => ['required', 'string', 'email', 'max:255'],
 						'nisn' => ['required', 'string', 'max:255', 'unique:users'],
@@ -25,6 +26,7 @@ class RegisterController extends Controller
 				]);
 
 				$user = User::create([
+						"nama" => $request->nama,
 						"username" => $request->username,
 						"email" => $request->email,
 						"nisn" => $request->nisn,

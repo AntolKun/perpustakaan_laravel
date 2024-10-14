@@ -40,6 +40,10 @@
 								<form action="{{ url('/post-register') }}" method="POST" enctype="multipart/form-data">
 									{{ csrf_field() }}
 									<div class="mb-3">
+										<label for="nama" class="form-label">Nama</label>
+										<input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan nama anda..." required>
+									</div>
+									<div class="mb-3">
 										<label for="username" class="form-label">Username</label>
 										<input type="text" name="username" class="form-control" id="username" placeholder="Masukkan username anda..." required>
 									</div>
