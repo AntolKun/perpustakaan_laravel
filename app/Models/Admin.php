@@ -2,15 +2,19 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class Admin extends Authenticatable
 {
     use HasFactory;
 
     protected $fillable = [
-        'username', 'nama', 'email', 'foto', 'password',
+        'username',
+        'nama',
+        'email',
+        'foto',
+        'password',
     ];
 
     protected $hidden = [
@@ -20,5 +24,6 @@ class Admin extends Model
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
-    }   
+    }
 }
+

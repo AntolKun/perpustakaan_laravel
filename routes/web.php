@@ -18,6 +18,7 @@ use App\Http\Controllers\AdminPenilaianController;
 use App\Http\Controllers\AdminNilaiSiswaController;
 use App\Http\Controllers\LombaController;
 use App\Http\Controllers\PendaftaranLombaController;
+use App\Http\Controllers\AdminKategoriBukuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,12 +60,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/lomba/{id}/peserta', [LombaController::class, 'showPeserta'])->name('lomba.peserta');
     Route::get('/lomba/{id}/pemenang', [LombaController::class, 'pengumumanPemenang'])->name('lomba.pemenang');
 
+    Route::resource('/adminKategori', AdminKategoriBukuController::class);
+
 });
 
 
 // Admin Dashboard
 Route::get("/adminDashboard", [AdminDashboardController::class, "index"])
-    ->middleware(["auth", "verified"])
+->middleware(["auth", "verified"])
     ->name("adminDashboard");
 
 // Data Admin Routes 
@@ -156,7 +159,7 @@ Route::post('/nilai-siswa', [AdminNilaiSiswaController::class, 'store'])->name('
 
 Route::get('/admin/login', [LoginController::class, 'loginAdmin'])->name('admin.login');
 Route::post('/admin/actionAdminLogin', [LoginController::class, 'actionAdminLogin'])->name('actionAdminLogin');
-Route::get('/admin/actionLogout', [LoginController::class, 'actionLogout'])->middleware(['auth:admin'])->name('admin.actionLogout');
+Route::get('/admin/actionLogout', [LoginController::class, 'actionLogout'])->name('admin.actionLogout');
 
 
 //login logout

@@ -27,7 +27,7 @@
 						<div class="d-flex">
 							<div class="flex-grow-1">
 								<p class="text-muted fw-medium">Data Admin</p>
-								<h4 class="mb-0">12</h4>
+								<h4 class="mb-0">{{ $countAdmin }}</h4>
 							</div>
 							<div class="flex-shrink-0 align-self-center">
 								<div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
@@ -47,7 +47,7 @@
 						<div class="d-flex">
 							<div class="flex-grow-1">
 								<p class="text-muted fw-medium">Data Buku</p>
-								<h4 class="mb-0">2009</h4>
+								<h4 class="mb-0">{{ $countBuku }}</h4>
 							</div>
 							<div class="flex-shrink-0 align-self-center">
 								<div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
@@ -67,7 +67,7 @@
 						<div class="d-flex">
 							<div class="flex-grow-1">
 								<p class="text-muted fw-medium">Peminjaman Buku</p>
-								<h4 class="mb-0">17</h4>
+								<h4 class="mb-0">{{ $countPeminjaman }}</h4>
 							</div>
 							<div class="flex-shrink-0 align-self-center">
 								<div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
@@ -87,7 +87,7 @@
 						<div class="d-flex">
 							<div class="flex-grow-1">
 								<p class="text-muted fw-medium">Pengembalian Buku</p>
-								<h4 class="mb-0">9</h4>
+								<h4 class="mb-0">{{ $countPengembalian }}</h4>
 							</div>
 							<div class="flex-shrink-0 align-self-center">
 								<div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
@@ -107,7 +107,7 @@
 						<div class="d-flex">
 							<div class="flex-grow-1">
 								<p class="text-muted fw-medium">Lomba Literasi</p>
-								<h4 class="mb-0">14</h4>
+								<h4 class="mb-0">{{ $countLomba }}</h4>
 							</div>
 							<div class="flex-shrink-0 align-self-center">
 								<div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
@@ -115,18 +115,6 @@
 										<i class="bx bx-purchase-tag-alt font-size-24"></i>
 									</span>
 								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3">
-				<div class="card mini-stats-wid">
-					<div class="card-body">
-						<div class="d-flex">
-							<div class="flex-grow-1">
-								<h4 class="mb-0">Syarat dan Ketentuan Peminjaman</h4>
 							</div>
 						</div>
 					</div>

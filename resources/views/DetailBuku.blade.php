@@ -1,4 +1,11 @@
 @extends('layouts.UserTemplate')
+
+@section('css')
+<link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logosma.png') }}" />
+<link rel="stylesheet" href="{{ asset('dist/libs/owl.carousel/dist/assets/owl.carousel.min.css') }}">
+<link id="themeColors" rel="stylesheet" href="{{ asset('dist/css/style.min.css') }}" />
+@endsection
+
 @section('content')
 
 <div class="container mt-5">
@@ -106,6 +113,26 @@
     </div>
   </div>
 </div>
+
+
+@section('js')
+<script src="{{ asset('dist/libs/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('dist/libs/simplebar/dist/simplebar.min.js') }}"></script>
+<script src="{{ asset('dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+<!--  core files -->
+<script src="{{ asset('dist/js/app.min.js') }}"></script>
+<script src="{{ asset('dist/js/app.init.js')}}"></script>
+<script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
+<script src="{{ asset('dist/js/sidebarmenu.js') }}"></script>
+<script src="{{ asset('dist/js/custom.js') }}"></script>
+<!--  current page js files -->
+<script src="{{ asset('dist/libs/owl.carousel/dist/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('dist/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
+<script src="{{ asset('dist/js/dashboard.js') }}"></script>
+<script src="{{ asset('dist/js/dashboard3.js') }}"></script>
+<script src="{{ asset('dist/libs/fullcalendar/index.global.min.js') }}"></script>
+<script src="{{ asset('dist/js/apps/calendar-init.js') }}"></script>
+@endsection
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

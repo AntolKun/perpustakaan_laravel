@@ -45,15 +45,20 @@ class LoginController extends Controller
 
 	public function actionAdminLogin(Request $request)
 	{
-		$admin = Admin::where('email', $request->email)->first();
+		$request->validate([
+			'email' => 'required|email',
+			'password' => 'required',
+		]);
 
-		if ($admin && Hash::check($request->password, $admin->password)) {
-			Auth::login($admin);
-			return redirect('/adminDashboard')->with('success', 'Berhasil Login sebagai Admin!');
+		$credentials = $request->only('email', 'password');
+
+		if (Auth::guard('admin')->attempt($credentials)) {
+			return redirect()->route('adminDashboard')->with('success', 'Berhasil Login sebagai Admin!');
 		} else {
 			return back()->with('error', 'Email atau Password Admin salah!');
 		}
 	}
+
 
 	public function actionLogout()
 	{

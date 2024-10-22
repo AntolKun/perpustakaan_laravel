@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
+use App\Models\KategoriBuku;
 use Illuminate\Http\Request;
 
 class AdminBukuController extends Controller
@@ -11,14 +12,15 @@ class AdminBukuController extends Controller
     public function index()
     {
         // $bukus = Buku::all();
-        $data["buku"] = Buku::all();
+        $data["buku"] = Buku::with('kategori')->get();
         return view('admin.buku.AdminDataBuku', $data);
     }
 
     // Show the form for creating a new book
     public function create()
     {
-        return view('admin.buku.AdminTambahBuku');
+        $data['kategori'] = KategoriBuku::all(); // Load all categories
+        return view('admin.buku.AdminTambahBuku', $data);
     }
 
     // Store a new book
@@ -34,6 +36,7 @@ class AdminBukuController extends Controller
             'halaman' => 'required|integer',
             'deskripsi' => 'required',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'kategori_id' => 'nullable|exists:kategori_buku,id',
         ]);
 
         // Upload image
@@ -56,6 +59,7 @@ class AdminBukuController extends Controller
             'halaman' => $request->input('halaman'),
             'deskripsi' => $request->input('deskripsi'),
             'gambar' => $fotoPath,
+            'kategori_id' => $request->input('kategori_id'),
         ]);
 
         return redirect('/adminBuku')->with('success', 'Buku berhasil ditambahkan');
@@ -72,7 +76,8 @@ class AdminBukuController extends Controller
     public function edit($id)
     {
         $buku = Buku::findOrFail($id);
-        return view('admin.buku.AdminEditBuku', compact('buku'));
+        $data['kategori'] = KategoriBuku::all();
+        return view('admin.buku.AdminEditBuku', ('buku, data'));
     }
 
     // Update an existing book
@@ -92,6 +97,7 @@ class AdminBukuController extends Controller
             'halaman' => 'required|integer',
             'deskripsi' => 'required|string',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'kategori_id' => 'nullable|exists:kategori_buku,id',
         ]);
 
         // Perbarui informasi buku
@@ -103,6 +109,7 @@ class AdminBukuController extends Controller
         $buku->penulis = $request->input('penulis');
         $buku->halaman = $request->input('halaman');
         $buku->deskripsi = $request->input('deskripsi');
+        $buku->kategori_id = $request->input('kategori_id');
 
         // Tangani pembaruan gambar
         if ($request->hasFile('gambar')) {

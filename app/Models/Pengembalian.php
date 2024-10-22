@@ -31,7 +31,7 @@ class Pengembalian extends Model
     $now = Carbon::now();
     if ($now->greaterThan($tanggalPengembalian)) {
       $diff = $now->diffInDays($tanggalPengembalian);
-      return $diff * 1000; // Rp. 1000 per day overdue
+      return $diff * 2500; // Rp. 1000 per day overdue
     }
     return 0;
   }

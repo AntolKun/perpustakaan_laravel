@@ -84,6 +84,18 @@
 								<input type="number" class="form-control" id="halaman" name="halaman" placeholder="Masukkan jumlah halaman" value="{{ old('halaman') }}" required>
 							</div>
 						</div>
+
+						<div class="col-md-6">
+							<div class="form-group mt-4">
+								<label for="kategori_id">Kategori Buku</label>
+								<select class="form-control" id="kategori_id" name="kategori_id">
+									<option value="" disabled selected>Pilih Kategori</option>
+									@foreach($kategori as $k)
+									<option value="{{ $k->id }}">{{ $k->nama_kategori }}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
 					</div>
 
 					<div class="col-md-12 mt-4">
@@ -97,11 +109,10 @@
 						<button type="submit" class="btn btn-primary">Tambah</button>
 						<a href="{{ url('/adminBuku') }}" type="button" class="btn btn-danger waves-effect waves-light">Kembali</a>
 					</div>
+				</form>
 			</div>
-			</form>
 		</div>
 	</div>
-</div>
 </div>
 
 @section('js')

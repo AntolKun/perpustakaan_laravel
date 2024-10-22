@@ -29,6 +29,7 @@
 				<thead style="background-color: #3751CF; color: white; text-align: center;">
 					<tr>
 						<th>Judul Buku</th>
+						<th>Kategori</th>
 						<th>ISBN</th>
 						<th>Penerbit</th>
 						<th>Tahun Terbit</th>
@@ -42,11 +43,12 @@
 					@foreach($buku as $b)
 					<tr>
 						<td>{{ $b->judulbuku }}</td>
+						<td>{{ $b->kategori->nama_kategori ?? 'Tidak ada kategori' }}</td>
 						<td>{{ $b->isbn }}</td>
 						<td>{{ $b->penerbit }}</td>
 						<td>{{ $b->tahun_terbit }}</td>
 						<td>{{ $b->stok }}</td>
-						<td>{{ $b->deskripsi }}</td>
+						<td>{{ Str::limit($b->deskripsi, 200, '...') }}</td>
 						<td>
 							@if($b->gambar)
 							<img src="{{ asset('buku_photos/' . $b->gambar) }}" alt="{{ $b->nama }}" width="100" height="100">

@@ -37,7 +37,9 @@
 						<div class="authentication-login min-vh-100 bg-body row justify-content-center align-items-center p-4">
 							<div class="col-sm-8 col-md-6 col-xl-9">
 								<!-- Logo Sekolah -->
-								<img src="{{ asset('assets/images/logosma.png') }}" alt="Logo Sekolah" class="img-fluid mb-4" style="max-width: 150px;">
+								<div class="d-flex justify-content-center">
+									<img src="{{ asset('assets/images/logosma.png') }}" alt="Logo Sekolah" class="img-fluid mb-4" style="max-width: 150px;">
+								</div>
 								<!-- Teks Selamat Datang -->
 								<h2 class="mb-3 fs-7 fw-bolder d-flex align-items-center text-center">Selamat datang di Perpustakaan SMAN 8 Bandar Lampung</h2>
 								<p class="text-center my-4">Silahkan Login</p>

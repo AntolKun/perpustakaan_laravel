@@ -29,19 +29,19 @@
 					<div class="navbar-brand-box">
 						<a href="/adminDashboard" class="logo logo-dark">
 							<span class="logo-sm">
-								<img src="{{ asset('assets/images/logosma.png') }}" alt="" height="22" />
+								<img src="{{ asset('assets/images/logosma.png') }}" alt="" height="22" class="mt-4" />
 							</span>
 							<span class="logo-lg">
-								<img src="{{ asset('assets/images/logosma.png') }}" alt="" height="70" />
+								<img src="{{ asset('assets/images/logosma.png') }}" alt="" height="70" class="mt-4" />
 							</span>
 						</a>
 
 						<a href="/adminDashboard" class="logo logo-light">
 							<span class="logo-sm">
-								<img src="{{ asset('assets/images/logosma.png') }}" alt="" height="22" />
+								<img src="{{ asset('assets/images/logosma.png') }}" alt="" height="22" class="mt-4" />
 							</span>
 							<span class="logo-lg">
-								<img src="{{ asset('assets/images/logosma.png') }}" alt="" height="70" />
+								<img src="{{ asset('assets/images/logosma.png') }}" alt="" height="70" class="mt-4" />
 							</span>
 						</a>
 					</div>
@@ -49,7 +49,6 @@
 					<button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
 						<i class="fa fa-fw fa-bars"></i>
 					</button>
-
 				</div>
 
 				<div class="d-flex">
@@ -63,7 +62,7 @@
 					<div class="dropdown d-inline-block">
 						<button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<img class="rounded-circle header-profile-user" src="{{ asset('assets/images/logosma.png') }}" alt="Header Avatar" />
-							<span class="d-none d-xl-inline-block ms-1" key="t-henry">Tolo</span>
+							<span class="d-none d-xl-inline-block ms-1" key="t-henry">Admin {{ auth()->user()->nama }}</span>
 							<i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
 						</button>
 						<div class="dropdown-menu dropdown-menu-end">
@@ -86,6 +85,10 @@
 			<div data-simplebar class="h-100">
 				<!--- Sidemenu -->
 				<div id="sidebar-menu">
+					<div class="mb-2 mt-4 text-center d-flex flex-column justify-content-center align-items-center">
+						<h5 class=>Selamat Datang</h5>
+						<h6 class=>Admin {{ auth()->user()->nama }}</h6>
+					</div>
 					<!-- Left Menu Start -->
 					<ul class="metismenu list-unstyled" id="side-menu">
 						<li class="menu-title" key="t-menu">Menu</li>
@@ -101,6 +104,13 @@
 							<a href="/adminData" class="waves-effect">
 								<i class="bx bx-file"></i>
 								<span key="t-file-manager">Data Admin</span>
+							</a>
+						</li>
+
+						<li>
+							<a href="/adminKategori" class="waves-effect">
+								<i class="bx bx-file"></i>
+								<span key="t-file-manager">Data Kategori Buku</span>
 							</a>
 						</li>
 
