@@ -76,8 +76,8 @@ class AdminBukuController extends Controller
     public function edit($id)
     {
         $buku = Buku::findOrFail($id);
-        $data['kategori'] = KategoriBuku::all();
-        return view('admin.buku.AdminEditBuku', ('buku, data'));
+        $kategori = KategoriBuku::all();
+        return view('admin.buku.AdminEditBuku', compact('buku', 'kategori'));
     }
 
     // Update an existing book

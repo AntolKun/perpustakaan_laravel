@@ -79,20 +79,24 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group mt-4">
+								<label for="kategori_id">Kategori Buku</label>
+								<select class="form-control" id="kategori_id" name="kategori_id">
+									<option value="" disabled>Pilih Kategori</option>
+									@foreach($kategori as $k)
+									<option value="{{ $k->id }}" {{ $buku->kategori_id == $k->id ? 'selected' : '' }}>
+										{{ $k->nama_kategori }}
+									</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group mt-4">
 								<label for="penulis">Penulis</label>
 								<input type="text" class="form-control" id="penulis" name="penulis" placeholder="Masukkan nama penulis" value="{{ old('penulis', $buku->penulis) }}" required>
-							</div>
-
-							<div class="col-md-6">
-								<div class="form-group mt-4">
-									<label for="kategori_id">Kategori Buku</label>
-									<select class="form-control" id="kategori_id" name="kategori_id">
-										<option value="" disabled selected>Pilih Kategori</option>
-										@foreach($kategori as $k)
-										<option value="{{ $k->id }}">{{ $k->nama_kategori }}</option>
-										@endforeach
-									</select>
-								</div>
 							</div>
 
 							<div class="form-group mt-4">

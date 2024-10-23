@@ -80,7 +80,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-xl-6 col-xxl-6">
+					<div class="col-xl-6 col-xxl-6" style="background-color: #10439F;">
 						<div class="d-none d-xl-flex align-items-center justify-content-center pt-5" style="height: calc(100vh - 80px);">
 							<img src="{{ asset('assets/images/LOGIN.SVG') }}" alt="" class="img-fluid" width="500">
 						</div>

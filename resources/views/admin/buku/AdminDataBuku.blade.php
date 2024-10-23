@@ -25,7 +25,7 @@
 <div class="row">
 	<div class="col-12">
 		<div class="table-responsive">
-			<table id="datatable" class="display table table-bordered w-100" style="width:100%; border: 2px solid #3751CF;">
+			<table table id="datatable" class="display table table-bordered" style="width:100%; border: 2px solid #3751CF;">
 				<thead style="background-color: #3751CF; color: white; text-align: center;">
 					<tr>
 						<th>Judul Buku</th>
@@ -36,7 +36,7 @@
 						<th>Stok</th>
 						<th>Sinopsis</th>
 						<th>Foto Buku</th>
-						<th colspan=" 3">Aksi</th>
+						<th>Aksi</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -60,13 +60,9 @@
 							<div class="col-4">
 								<a type="button" class="btn btn-warning waves-effect waves-light" href="/adminLihatBuku/{{ $b->id }}">Lihat</a>
 							</div>
-						</td>
-						<td>
 							<div class="col-4">
 								<a type="button" class="btn btn-primary waves-effect waves-light" href="/getBukuEdit/{{ $b->id }}">Edit</a>
 							</div>
-						</td>
-						<td>
 							<div class="col-4">
 								<form action="{{ url('/bukuDelete') }}/{{ $b->id }}" method="POST">
 									@csrf
@@ -103,14 +99,7 @@
 
 <!-- Datatable init js -->
 <script src="{{ asset('skoteassets/js/pages/datatables.init.js') }}"></script>
-<!-- <script>
-	$(document).ready(function() {
-		$('#datatable').DataTable({
-			scrollX: true,
-			responsive: false
-		});
-	});
-</script> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @if ($message = session()->get('success'))
