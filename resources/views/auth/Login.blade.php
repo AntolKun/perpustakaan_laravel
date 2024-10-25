@@ -43,6 +43,15 @@
 								<!-- Teks Selamat Datang -->
 								<h2 class="mb-3 fs-7 fw-bolder d-flex align-items-center text-center">Selamat datang di Perpustakaan SMAN 8 Bandar Lampung</h2>
 								<p class="text-center my-4">Silahkan Login</p>
+								@if ($errors->any())
+								<div class="alert alert-danger">
+									<ul>
+										@foreach ($errors->all() as $error)
+										<li>{{ $error }}</li>
+										@endforeach
+									</ul>
+								</div>
+								@endif
 								<form method="POST" action="{{ url('actionLogin') }}">
 									{{ csrf_field() }}
 									<div class="mb-3">

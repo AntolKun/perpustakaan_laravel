@@ -35,20 +35,13 @@
 
 							<div class="col-md-6 mt-4">
 								<div class="form-group">
-									<label for="username">Username</label>
-									<input type="text" disabled class="form-control" id="username" name="username" value="{{ $admin->username }}" placeholder="Masukkan Username">
+									<label for="email">Email</label>
+									<input type="email" disabled class="form-control" id="email" name="email" value="{{ $admin->user->email }}" placeholder="Masukkan Email">
 								</div>
 							</div>
 						</div>
 
 						<div class="row">
-							<div class="col-md-6 mt-4">
-								<div class="form-group">
-									<label for="email">Email</label>
-									<input type="email" disabled class="form-control" id="email" name="email" value="{{ $admin->email }}" placeholder="Masukkan Email">
-								</div>
-							</div>
-
 							<div class="col-md-6 mt-4">
 								<div class="form-group">
 									<label for="foto">Foto</label>

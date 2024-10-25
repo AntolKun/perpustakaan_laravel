@@ -2,20 +2,12 @@
 <html lang="en">
 
 <head>
-	<!--  Title -->
 	<title>Perpustakaan SMAN 8 Bandar Lampung</title>
-	<!--  Required Meta Tag -->
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="handheldfriendly" content="true" />
-	<meta name="MobileOptimized" content="width" />
 	<meta name="description" content="Web Perpustakaan SMAN 8 Bandar Lampung" />
 	<meta name="author" content="Najib Wiharjanto" />
-	<meta name="keywords" content="Perpustakaan SMAN 8 Bandar Lampung" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<!--  Favicon -->
 	<link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logosma.png') }}" />
-	<!-- Core Css -->
 	<link id="themeColors" rel="stylesheet" href="{{ asset('dist/css/style.min.css') }}" />
 </head>
 
@@ -36,18 +28,22 @@
 								<div class="d-flex justify-content-center">
 									<img src="{{ asset('assets/images/logosma.png') }}" alt="Logo Sekolah" class="img-fluid mb-4" style="max-width: 150px;">
 								</div>
-								<!-- Teks Selamat Datang -->
 								<h2 class="mb-3 fs-7 fw-bolder d-flex align-items-center text-center">Silahkan Daftar Akun di Perpustakaan SMAN 8 Bandar Lampung</h2>
 								<p class="text-center my-4">Isi data di bawah ini untuk mendaftar</p>
-								<form action="{{ url('/post-register') }}" method="POST" enctype="multipart/form-data">
+								@if ($errors->any())
+								<div class="alert alert-danger">
+									<ul>
+										@foreach ($errors->all() as $error)
+										<li>{{ $error }}</li>
+										@endforeach
+									</ul>
+								</div>
+								@endif
+								<form action="{{ url('/post-register') }}" method="POST">
 									{{ csrf_field() }}
 									<div class="mb-3">
 										<label for="nama" class="form-label">Nama</label>
 										<input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan nama anda..." required>
-									</div>
-									<div class="mb-3">
-										<label for="username" class="form-label">Username</label>
-										<input type="text" name="username" class="form-control" id="username" placeholder="Masukkan username anda..." required>
 									</div>
 									<div class="mb-3">
 										<label for="email" class="form-label">Email</label>
@@ -56,6 +52,10 @@
 									<div class="mb-3">
 										<label for="nisn" class="form-label">NISN</label>
 										<input type="number" name="nisn" class="form-control" id="nisn" placeholder="Masukkan NISN anda..." required>
+									</div>
+									<div class="mb-3">
+										<label for="nomor_telepon" class="form-label">Nomor Telepon</label>
+										<input type="number" name="nomor_telepon" class="form-control" id="nomor_telepon" placeholder="Masukkan Nomor Telepon anda..." required>
 									</div>
 									<div class="mb-3">
 										<label for="kelas" class="form-label">Kelas</label>
@@ -94,7 +94,6 @@
 	<script src="{{ asset('dist/libs/jquery/dist/jquery.min.js') }}"></script>
 	<script src="{{ asset('dist/libs/simplebar/dist/simplebar.min.js') }}"></script>
 	<script src="{{ asset('dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
-	<!--  core files -->
 	<script src="{{ asset('dist/js/app.min.js') }}"></script>
 	<script src="{{ asset('dist/js/app.init.js') }}"></script>
 	<script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>

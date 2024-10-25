@@ -19,6 +19,9 @@
 </head>
 
 <body data-sidebar="dark" data-layout-mode="light">
+	@php
+	$admin = \App\Models\Admin::where('user_id', auth()->user()->id)->first();
+	@endphp
 	<!-- <body data-layout="horizontal" data-topbar="dark"> -->
 	<!-- Begin page -->
 	<div id="layout-wrapper">
@@ -61,8 +64,8 @@
 
 					<div class="dropdown d-inline-block">
 						<button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<img class="rounded-circle header-profile-user" src="{{ asset('assets/images/logosma.png') }}" alt="Header Avatar" />
-							<span class="d-none d-xl-inline-block ms-1" key="t-henry">Admin {{ auth()->user()->nama }}</span>
+							<img class="rounded-circle header-profile-user" src="{{ asset('admin_photos/' . $admin->foto) }}" alt="Header Avatar" />
+							<span class="d-none d-xl-inline-block ms-1" key="t-henry">Admin {{ $admin->nama }}</span>
 							<i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
 						</button>
 						<div class="dropdown-menu dropdown-menu-end">
@@ -87,7 +90,7 @@
 				<div id="sidebar-menu">
 					<div class="mb-2 mt-4 text-center d-flex flex-column justify-content-center align-items-center">
 						<h5 class=>Selamat Datang</h5>
-						<h6 class=>Admin {{ auth()->user()->nama }}</h6>
+						<h6 class=>Admin {{ $admin->nama }}</h6>
 					</div>
 					<!-- Left Menu Start -->
 					<ul class="metismenu list-unstyled" id="side-menu">

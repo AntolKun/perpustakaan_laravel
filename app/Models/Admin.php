@@ -10,20 +10,20 @@ class Admin extends Authenticatable
     use HasFactory;
 
     protected $fillable = [
-        'username',
+        'user_id',
         'nama',
-        'email',
         'foto',
-        'password',
     ];
 
-    protected $hidden = [
-        'password',
-    ];
-
-    public function setPasswordAttribute($password)
+    public function admin()
     {
-        $this->attributes['password'] = bcrypt($password);
+        return $this->hasOne(Admin::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
+
 

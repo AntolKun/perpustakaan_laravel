@@ -29,8 +29,8 @@
 				<tr>
 					<th>Foto</th>
 					<th>Nama</th>
-					<th>Username</th>
 					<th>Email</th>
+					<th>Role</th>
 					<th>Aksi</th>
 				</tr>
 			</thead>
@@ -39,14 +39,14 @@
 				<tr>
 					<td>
 						@if($a->foto)
-							<img src="{{ asset('admin_photos/' . $a->foto) }}" alt="{{ $a->nama }}" width="100" height="100">
+						<img src="{{ asset('admin_photos/' . $a->foto) }}" alt="{{ $a->nama }}" width="100" height="100">
 						@else
-							No Photo
+						No Photo
 						@endif
 					</td>
 					<td>{{ $a->nama }}</td>
-					<td>{{ $a->username }}</td>
-					<td>{{ $a->email }}</td>
+					<td>{{ $a->user->email }}</td>
+					<td>{{ $a->user->role }}</td>
 					<td>
 						<div class="row">
 							<div class="col-4">

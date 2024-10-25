@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,11 +14,8 @@ class AdminDataController extends Controller
 {
     public function index()
     {
-        $data["admin"] = Admin::all()->map(function ($admin) {
-            $admin->password_placeholder = '********';
-            return $admin;
-        });
-        return view('admin.AdminDataAdmin', $data);
+        $admin = Admin::with('user')->get();
+        return view('admin.AdminDataAdmin', compact('admin'));
     }
 
     public function tambahAdmin()
@@ -29,106 +27,105 @@ class AdminDataController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'username' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:admins',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'role' => 'required|in:Admin,Pustakawan,Juri',
         ]);
 
         $fotoPath = null;
         if ($request->hasFile('foto')) {
             $foto = $request->file('foto');
             $fotoName = time() . '_' . $foto->getClientOriginalName();
-            $foto->move(public_path('admin_photos'), $fotoName); // Move file directly to public/admin_photos
+            $foto->move(public_path('admin_photos'), $fotoName);
             $fotoPath = $fotoName;
         }
 
-        $admin = Admin::create([
-            'nama' => $request->nama,
-            'username' => $request->username,
+        $user = User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $request->role, 
+        ]);
+
+        Admin::create([
+            'user_id' => $user->id,
+            'nama' => $request->nama,
             'foto' => $fotoPath,
         ]);
 
-        if ($admin) {
-            return redirect('/adminData')->with("success", "Data Berhasil Tersimpan");
-        } else {
-            return back()->with("error", "Data Gagal Tersimpan");
-        }
-    }
-
-    public function destroy($id)
-    {
-        $admin = Admin::findOrFail($id);
-
-        if ($admin->foto && file_exists(public_path('storage/' . $admin->foto))) {
-            unlink(public_path('storage/' . $admin->foto));
-        }
-
-        $admin->delete();
-
-        if ($admin) {
-            //redirect to index
-            return back()->with("success", "Data Berhasil Terhapus");
-        } else {
-            return back()->with("error", "Data Gagal Terhapus");
-        }
+        return redirect()->route('adminData')->with('success', 'Admin berhasil ditambahkan.');
     }
 
     public function lihatData($id)
     {
-        $admin = Admin::findOrFail($id);
+        $admin = Admin::with('user')->findOrFail($id);
         return view('admin.AdminLihatData', compact('admin'));
     }
 
     public function getDataEdit($id)
     {
-        $admin = Admin::findOrFail($id);
+        $admin = Admin::with('user')->findOrFail($id);
         return view('admin.AdminEditData', compact('admin'));
     }
 
     public function editData(Request $request, $id)
     {
         $admin = Admin::findOrFail($id);
+        $user = User::findOrFail($admin->user_id);
 
         $request->validate([
-            'nama' => 'required',
-            'username' => 'required|unique:admins,username,' . $id,
-            'email' => 'required|email|unique:admins,email,' . $id,
-            'password' => 'nullable|string|confirmed|min:8',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'nama' => 'required|string|max:255',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8|confirmed',
         ]);
 
-        $admin->nama = $request->input('nama');
-        $admin->username = $request->input('username');
-        $admin->email = $request->input('email');
-
-        // Only update password if it is provided
-        if ($request->filled('password')) {
-            $admin->password = Hash::make($request->input('password'));
-        }
-
-        // Handle photo update
+        // Handle foto
+        $fotoPath = $admin->foto;
         if ($request->hasFile('foto')) {
-            // Delete old photo if exists
-            if ($admin->foto && file_exists(public_path('admin_photos/' . $admin->foto))) {
-                unlink(public_path('admin_photos/' . $admin->foto));
+            if ($fotoPath && file_exists(public_path('admin_photos/' . $fotoPath))) {
+                unlink(public_path('admin_photos/' . $fotoPath));
             }
 
-            // Upload new photo
             $foto = $request->file('foto');
             $fotoName = time() . '_' . $foto->getClientOriginalName();
             $foto->move(public_path('admin_photos'), $fotoName);
-            $admin->foto = $fotoName;
+            $fotoPath = $fotoName;
         }
 
-        $updated = $admin->save();
+        // Update user data
+        $user->update([
+            'email' => $request->email,
+            'role' => $request->role,
+            'password' => $request->password ? Hash::make($request->password) : $user->password,
+        ]);
 
-        if ($updated) {
-            return redirect('/adminData')->with("success", "Data Berhasil Terupdate");
+        // Update admin data
+        $admin->update([
+            'nama' => $request->nama,
+            'foto' => $fotoPath,
+        ]);
+
+        return redirect()->route('adminData')->with('success', 'Admin berhasil diupdate.');
+    }
+
+    public function destroy($id)
+    {
+        $admin = Admin::findOrFail($id);
+        $user = User::findOrFail($admin->user_id);
+
+        if ($admin->foto && file_exists(public_path('admin_photos/' . $admin->foto))) {
+            unlink(public_path('admin_photos/' . $admin->foto)); // Ensure the correct path is used
+        }
+
+        $admin->delete();
+        $user->delete();
+
+        if ($admin) {
+            //redirect to index
+            return back()->with("success", "Data Berhasil Terhapus");
         } else {
-            return back()->with("error", "Data Gagal Terupdate");
+            return back()->with("error", "Data Gagal Terhapus");
         }
     }
 }

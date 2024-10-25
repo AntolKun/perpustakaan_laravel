@@ -40,14 +40,18 @@
 							<div class="col-md-6 mt-4">
 								<div class="form-group">
 									<label for="nama">Nama</label>
-									<input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama', $admin->nama) }}" placeholder="Masukkan Nama">
+									<input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama', $admin->nama) }}" placeholder="Masukkan Nama" required>
 								</div>
 							</div>
 
 							<div class="col-md-6 mt-4">
 								<div class="form-group">
-									<label for="username">Username</label>
-									<input type="text" class="form-control" id="username" name="username" value="{{ old('username', $admin->username) }}" placeholder="Masukkan Username">
+									<label for="role">Role</label>
+									<select class="form-control" id="role" name="role" required>
+										<option value="Admin" {{ old('role', $admin->role) == 'Admin' ? 'selected' : '' }}>Admin</option>
+										<option value="Pustakawan" {{ old('role', $admin->role) == 'Pustakawan' ? 'selected' : '' }}>Pustakawan</option>
+										<option value="Juri" {{ old('role', $admin->role) == 'Juri' ? 'selected' : '' }}>Juri</option>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -70,7 +74,7 @@
 							<div class="col-md-6 mt-4">
 								<div class="form-group">
 									<label for="email">Email</label>
-									<input type="email" class="form-control" id="email" name="email" value="{{ old('email', $admin->email) }}" placeholder="Masukkan Email">
+									<input type="email" class="form-control" id="email" name="email" value="{{ old('email', $admin->user->email) }}" placeholder="Masukkan Email" required>
 								</div>
 							</div>
 						</div>
@@ -88,7 +92,7 @@
 
 							<div class="col-md-6 mt-4">
 								<div class="form-group">
-									<label for="password">Konfirmasi Password</label>
+									<label for="password_confirmation">Konfirmasi Password</label>
 									<div class="input-group auth-pass-inputgroup">
 										<input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="konfirmasi password">
 										<button class="btn btn-light" type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>

@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->unique();
             $table->string('nama');
-            $table->string('username');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('foto')->nullable(); // Add foto column
+            $table->string('foto')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -30,4 +30,3 @@ return new class extends Migration
         Schema::dropIfExists('admins');
     }
 };
-

@@ -89,9 +89,7 @@ Route::put("/adminEdit/{id}", [AdminDataController::class, "editData"])
 Route::get("/getAdminEdit/{id}", [AdminDataController::class, "getDataEdit"])
     ->middleware(["auth", "verified"])
     ->name("getAdminEdit");
-Route::delete("/adminDelete/{id}", [AdminDataController::class, "destroy"])
-    ->middleware(["auth", "verified"])
-    ->name("adminDelete");
+Route::delete('/adminDelete/{id}', [AdminDataController::class, "destroy"])->name('adminDelete');
 
 // Admin Data Buku Routes
 Route::get("/adminBuku", [AdminBukuController::class, "index"])
@@ -163,8 +161,9 @@ Route::get('/admin/actionLogout', [LoginController::class, 'actionLogout'])->nam
 
 
 //login logout
-Route::get('/login', [LoginController::class, 'index'])
-    ->name('login');
+Route::get('/login', function () {
+    return view('auth.Login');
+})->name('login');
 Route::post('actionLogin', [LoginController::class, 'actionLogin']);
 Route::get('actionLogout', [LoginController::class, 'actionLogout'])
     ->name('actionLogout')
