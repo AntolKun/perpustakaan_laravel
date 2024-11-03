@@ -21,8 +21,8 @@
 <body data-sidebar="dark" data-layout-mode="light">
 	@php
 	$admin = \App\Models\Admin::where('user_id', auth()->user()->id)->first();
+	$role = auth()->user()->role;
 	@endphp
-	<!-- <body data-layout="horizontal" data-topbar="dark"> -->
 	<!-- Begin page -->
 	<div id="layout-wrapper">
 		<header id="page-topbar">
@@ -89,8 +89,8 @@
 				<!--- Sidemenu -->
 				<div id="sidebar-menu">
 					<div class="mb-2 mt-4 text-center d-flex flex-column justify-content-center align-items-center">
-						<h5 class=>Selamat Datang</h5>
-						<h6 class=>Admin {{ $admin->nama }}</h6>
+						<h5>Selamat Datang</h5>
+						<h6>Admin {{ $admin->nama }}</h6>
 					</div>
 					<!-- Left Menu Start -->
 					<ul class="metismenu list-unstyled" id="side-menu">
@@ -103,27 +103,34 @@
 							</a>
 						</li>
 
+						@if($role === 'admin')
 						<li>
 							<a href="/adminData" class="waves-effect">
 								<i class="bx bx-file"></i>
 								<span key="t-file-manager">Data Admin</span>
 							</a>
 						</li>
+						@endif
 
+						@if($role === 'admin' || $role === 'pustakawan')
 						<li>
 							<a href="/adminKategori" class="waves-effect">
 								<i class="bx bx-file"></i>
 								<span key="t-file-manager">Data Kategori Buku</span>
 							</a>
 						</li>
+						@endif
 
+						@if($role === 'admin' || $role === 'pustakawan')
 						<li>
 							<a href="/adminBuku" class="waves-effect">
 								<i class="bx bx-file"></i>
 								<span key="t-file-manager">Data Buku</span>
 							</a>
 						</li>
+						@endif
 
+						@if($role === 'admin' || $role === 'pustakawan')
 						<li>
 							<a href="/adminPeminjaman" class="waves-effect">
 								<i class="bx bx-file"></i>
@@ -137,13 +144,16 @@
 								<span key="t-file-manager">Pengembalian Buku</span>
 							</a>
 						</li>
+						@endif
 
+						@if($role === 'admin' || $role === 'juri')
 						<li>
 							<a href="/adminLomba" class="waves-effect">
 								<i class="bx bx-file"></i>
 								<span key="t-file-manager">Lomba Literasi</span>
 							</a>
 						</li>
+						@endif
 
 					</ul>
 				</div>
@@ -202,26 +212,12 @@
 
 			<div class="p-4">
 				<div class="mb-2">
-					<img src="{{asset('skoteassets/images/layouts/layout-1.jpg')}}" class="img-thumbnail" alt="layout images" />
+					<img src="{{asset('skoteassets/images/layouts/layout-1.jpg')}}" class="img-fluid img-thumbnail" alt="layout images">
 				</div>
-
-				<div class="form-check form-switch mb-3">
-					<input class="form-check-input theme-choice" type="checkbox" id="light-mode-switch" checked />
-					<label class="form-check-label" for="light-mode-switch">Light Mode</label>
-				</div>
-
-				<div class="mb-2">
-					<img src="{{asset('skoteassets/images/layouts/layout-2.jpg')}}" class="img-thumbnail" alt="layout images" />
-				</div>
-				<div class="form-check form-switch mb-3">
-					<input class="form-check-input theme-choice" type="checkbox" id="dark-mode-switch" />
-					<label class="form-check-label" for="dark-mode-switch">Dark Mode</label>
-				</div>
-
 			</div>
 		</div>
 	</div>
-	<div class="rightbar-overlay"></div>
+	<!-- /Right-bar -->
 
 	<!-- JAVASCRIPT -->
 	<script src="{{ asset('skoteassets/libs/jquery/jquery.min.js') }}"></script>
@@ -229,11 +225,7 @@
 	<script src="{{ asset('skoteassets/libs/metismenu/metisMenu.min.js') }}"></script>
 	<script src="{{ asset('skoteassets/libs/simplebar/simplebar.min.js') }}"></script>
 	<script src="{{ asset('skoteassets/libs/node-waves/waves.min.js') }}"></script>
-	<!-- apexcharts -->
-	<script src="{{ asset('skoteassets/libs/apexcharts/apexcharts.min.js') }}"></script>
-	<!-- dashboard init -->
-	<script src="{{ asset('skoteassets/js/pages/dashboard.init.js') }}"></script>
-	<!-- App js -->
+	<script src="{{ asset('skoteassets/libs/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
 	<script src="{{ asset('skoteassets/js/app.js') }}"></script>
 	@yield('js')
 </body>

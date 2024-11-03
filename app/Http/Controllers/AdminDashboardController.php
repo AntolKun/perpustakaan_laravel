@@ -24,4 +24,18 @@ class AdminDashboardController extends Controller
         $countLomba = Lomba::count();
         return view('admin.AdminDashboard', compact('countAdmin', 'countBuku', 'countPeminjaman', 'countPengembalian', 'countLomba'));
     }
+
+    public function indexPustakawan()
+    {
+        $countBuku = Buku::count();
+        $countPeminjaman = Peminjaman::count();
+        $countPengembalian = Pengembalian::count();
+        return view('admin.AdminDashboardPustakawan', compact('countBuku', 'countPeminjaman', 'countPengembalian',));
+    }
+
+    public function indexJuri()
+    {
+        $countLomba = Lomba::count();
+        return view('admin.AdminDashboardJuri', compact('countAdmin', 'countBuku', 'countPeminjaman', 'countPengembalian', 'countLomba'));
+    }
 }

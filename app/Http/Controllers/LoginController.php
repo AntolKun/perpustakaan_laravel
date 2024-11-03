@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
+
+	public function showLoginForm() {
+		return view('auth.Login');
+	}
 	public function actionLogin(Request $request)
 	{
 		$request->validate([
@@ -17,11 +21,18 @@ class LoginController extends Controller
 
 		$credentials = $request->only('email', 'password');
 
+		// Debugging: Log credentials
+		// \Log::info('Login attempt:', $credentials);
+
 		if (Auth::attempt($credentials)) {
 			$user = Auth::user();
 			switch ($user->role) {
 				case 'admin':
 					return redirect()->route('adminDashboard')->with("success", "Berhasil Login Sebagai Admin!");
+				case 'pustakawan':
+					return redirect()->route('adminDashboard')->with("success", "Berhasil Login Sebagai Pustakawan!");
+				case 'juri':
+					return redirect()->route('adminDashboard')->with("success", "Berhasil Login Sebagai Juri!");
 				case 'siswa':
 					return redirect()->route('dashboard')->with("success", "Berhasil Login!");
 			}
@@ -31,6 +42,7 @@ class LoginController extends Controller
 			'email' => 'Email atau password salah.',
 		]);
 	}
+
 
 	public function actionLogout()
 	{
