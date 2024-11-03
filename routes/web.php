@@ -107,7 +107,7 @@ Route::middleware(['auth', 'role:admin,juri'])->group(function () {
 
 
 // User Routes
-Route::middleware(['auth', 'role:user'])->group(function () {
+Route::middleware(['auth', 'role:siswa'])->group(function () {
     Route::get("/dashboard", [DashboardController::class, "index"])
     ->middleware(["auth", "verified"])
     ->name("dashboard");
