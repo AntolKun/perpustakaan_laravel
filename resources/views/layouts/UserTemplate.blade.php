@@ -98,22 +98,42 @@
 		<div class="body-wrapper">
 			<header class="app-header">
 				<nav class="navbar navbar-expand-lg navbar-light">
-					<ul class="navbar-nav">
+					<ul class="navbar-nav ms-auto">
 						<li class="nav-item">
-							<a class="nav-link sidebartoggler nav-icon-hover ms-n3" id="headerCollapse" href="javascript:void(0)">
+							<!-- <a class="nav-link sidebartoggler nav-icon-hover ms-n3" id="headerCollapse" href="javascript:void(0)">
 								<i class="ti ti-menu-2"></i>
-							</a>
+							</a> -->
 						</li>
 					</ul>
 					<div class="d-block d-lg-none">
 						<img src="{{ asset('assets/images/logosma.png') }}" class="dark-logo" width="60" alt="" />
 						<img src="{{ asset('assets/images/logosma.png') }}" class="light-logo" width="60" alt="" />
 					</div>
-					<button class="navbar-toggler p-0 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<!-- <button class="navbar-toggler p-0 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="p-2">
 							<i class=""></i>
 						</span>
-					</button>
+					</button> -->
+
+					<div class="dropdown d-inline-block">
+						@php
+						$user = auth()->user();
+						$siswa = $user->siswa;
+						@endphp
+						<button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<img class="rounded-circle header-profile-user" src="https://i.redd.it/cudrte4m27n71.png" width="40" alt="Header Avatar" />
+							<span class="d-none d-xl-inline-block ms-1" key="t-henry">
+								{{ $siswa ? $siswa->nama : 'User' }}
+							</span>
+							<i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+						</button>
+						<div class="dropdown-menu dropdown-menu-end">
+							<a class="dropdown-item text-danger" href="{{ route('actionLogout') }}">
+								<i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
+								<span key="t-logout">Logout</span>
+							</a>
+						</div>
+					</div>
 				</nav>
 			</header>
 			<!--  Header End -->
@@ -175,19 +195,6 @@
 							<a href="javascript:void(0)" class="rounded-circle position-relative d-block customizer-bgcolor skin6-orangetheme-primary" onclick="toggleTheme('{{ asset('dist/css/style-orange.min.css') }}')" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="ORANGE_THEME"><i class="ti ti-check  text-white d-flex align-items-center justify-content-center fs-5"></i></a>
 						</li>
 					</ul>
-				</div>
-			</div>
-			<div class="sidebar-type pb-4">
-				<h6 class="fw-semibold fs-4 mb-1">Tipe Sidebar</h6>
-				<div class="d-flex align-items-center gap-3 my-3">
-					<a href="javascript:void(0)" class="rounded-2 p-9 customizer-box hover-img d-flex align-items-center gap-2 fullsidebar">
-						<i class="ti ti-layout-sidebar-right fs-7"></i>
-						<span class="text-dark">Full</span>
-					</a>
-					<a href="javascript:void(0)" class="rounded-2 p-9 customizer-box hover-img d-flex align-items-center text-dark sidebartoggler gap-2">
-						<i class="ti ti-layout-sidebar fs-7"></i>
-						<span class="text-dark">Collapse</span>
-					</a>
 				</div>
 			</div>
 		</div>
