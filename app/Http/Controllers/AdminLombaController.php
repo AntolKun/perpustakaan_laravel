@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lomba;
+use App\Models\Penilaian;
 use App\Models\KategoriLomba;
 use App\Models\PendaftaranLomba;
 use Illuminate\Http\Request;
@@ -16,6 +17,31 @@ class AdminLombaController extends Controller
         return view('admin.lomba.AdminDataLomba', compact('lombas'));
     }
 
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'judul' => 'required',
+    //         'deskripsi' => 'required',
+    //         'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+    //     ]);
+
+    //     $gambarPath = null;
+    //     if ($request->hasFile('gambar')) {
+    //         $gambar = $request->file('gambar');
+    //         $gambarName = time() . '_' . $gambar->getClientOriginalName();
+    //         $gambar->move(public_path('admin_lomba'), $gambarName); // Move file directly to public/admin_lomba
+    //         $gambarPath = $gambarName;
+    //     }
+
+    //     Lomba::create([
+    //         'judul' => $request->judul,
+    //         'deskripsi' => $request->deskripsi,
+    //         'gambar' => $gambarPath,
+    //     ]);
+
+    //     return redirect()->back()->with('success', 'Lomba berhasil ditambahkan');
+    // }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -24,21 +50,72 @@ class AdminLombaController extends Controller
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
+        // Handle image upload
         $gambarPath = null;
         if ($request->hasFile('gambar')) {
             $gambar = $request->file('gambar');
             $gambarName = time() . '_' . $gambar->getClientOriginalName();
-            $gambar->move(public_path('admin_lomba'), $gambarName); // Move file directly to public/admin_lomba
+            $gambar->move(public_path('admin_lomba'), $gambarName);
             $gambarPath = $gambarName;
         }
 
-        Lomba::create([
+        // Create the lomba
+        $lomba = Lomba::create([
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
             'gambar' => $gambarPath,
         ]);
 
-        return redirect()->back()->with('success', 'Lomba berhasil ditambahkan');
+        // Define categories and penilaian data
+        $categories = [
+            [
+                'nama_kategori' => 'Story Telling',
+                'penilaians' => [
+                    'field_1' => 'Isi cerita',
+                    'field_2' => 'Ekspresi',
+                    'field_3' => 'Gestur Tubuh',
+                    'field_4' => 'Pengucapan bahasa inggris',
+                ],
+            ],
+            [
+                'nama_kategori' => 'Baca Puisi',
+                'penilaians' => [
+                    'field_1' => 'Ekspresi',
+                    'field_2' => 'Artikulasi dan diksi',
+                    'field_3' => 'Gestur',
+                    'field_4' => 'Pemahaman isi puisi',
+                ],
+            ],
+            [
+                'nama_kategori' => 'Poster',
+                'penilaians' => [
+                    'field_1' => 'Kreativitas',
+                    'field_2' => 'Kerapihan/tata letak/komposisi',
+                    'field_3' => 'Ketepatan tema',
+                    'field_4' => 'Pemilihan warna',
+                ],
+            ],
+        ];
+
+        // Loop through each category and create it along with its penilaian
+        foreach ($categories as $categoryData) {
+            // Create KategoriLomba
+            $kategori = KategoriLomba::create([
+                'nama_kategori' => $categoryData['nama_kategori'],
+                'lomba_id' => $lomba->id,
+            ]);
+
+            // Create Penilaian for each kategori
+            Penilaian::create([
+                'kategori_lomba_id' => $kategori->id,
+                'field_1' => $categoryData['penilaians']['field_1'],
+                'field_2' => $categoryData['penilaians']['field_2'],
+                'field_3' => $categoryData['penilaians']['field_3'],
+                'field_4' => $categoryData['penilaians']['field_4'],
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Lomba berhasil ditambahkan dengan kategori dan penilaian');
     }
 
     public function update(Request $request, $id)
