@@ -212,7 +212,18 @@
 
 			<div class="p-4">
 				<div class="mb-2">
-					<img src="{{asset('skoteassets/images/layouts/layout-1.jpg')}}" class="img-fluid img-thumbnail" alt="layout images">
+					<img src="{{asset('skoteassets/images/layouts/layout-1.jpg')}}" class="img-thumbnail" alt="layout images" />
+				</div>
+				<div class="form-check form-switch mb-3">
+					<input class="form-check-input theme-choice" type="checkbox" id="light-mode-switch" checked />
+					<label class="form-check-label" for="light-mode-switch">Light Mode</label>
+				</div>
+				<div class="mb-2">
+					<img src="{{asset('skoteassets/images/layouts/layout-2.jpg')}}" class="img-thumbnail" alt="layout images" />
+				</div>
+				<div class="form-check form-switch mb-3">
+					<input class="form-check-input theme-choice" type="checkbox" id="dark-mode-switch" />
+					<label class="form-check-label" for="dark-mode-switch">Dark Mode</label>
 				</div>
 			</div>
 		</div>

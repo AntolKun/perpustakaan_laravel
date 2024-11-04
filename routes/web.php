@@ -31,6 +31,9 @@ use App\Http\Controllers\AdminKategoriBukuController;
 |
 */
 //dashboard
+Route::get('/', function () {
+    return redirect('/login');
+});
 
 // Admin Routes
 Route::middleware(['auth', 'role:admin,pustakawan,juri'])->group(function () {
