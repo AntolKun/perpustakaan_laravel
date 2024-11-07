@@ -121,22 +121,100 @@
 						$siswa = $user->siswa;
 						@endphp
 						<button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<img class="rounded-circle header-profile-user" src="https://i.redd.it/cudrte4m27n71.png" width="40" alt="Header Avatar" />
+							<img class="rounded-circle header-profile-user" src="{{ $siswa && $siswa->foto ? asset('siswa_photos/' . $siswa->foto) : 'https://i.redd.it/cudrte4m27n71.png' }}" width="40" alt="Header Avatar" />
 							<span class="d-none d-xl-inline-block ms-1" key="t-henry">
 								{{ $siswa ? $siswa->nama : 'User' }}
 							</span>
 							<i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
 						</button>
 						<div class="dropdown-menu dropdown-menu-end">
+							<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editSiswaModal">
+								<i class="bx bx-edit font-size-16 align-middle me-1"></i>
+								<span>Edit Profile</span>
+							</a>
 							<a class="dropdown-item text-danger" href="{{ route('actionLogout') }}">
 								<i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
-								<span key="t-logout">Logout</span>
+								<span>Logout</span>
 							</a>
 						</div>
 					</div>
 				</nav>
 			</header>
 			<!--  Header End -->
+
+			<!-- Edit Profile Modal -->
+			<div class="modal fade" id="editSiswaModal" tabindex="-1" aria-labelledby="editSiswaModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg modal-dialog-centered">
+					<div class="modal-content" style="background-color: #10439F;">
+						<div class="modal-header border-0 text-white">
+							<h5 class="modal-title text-white" id="editSiswaModalLabel">Edit Profile</h5>
+							<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div class="container p-4 rounded" style="background-color: #10439F;">
+								<div class="row">
+									<!-- Thumbnail -->
+									<div class="col-md-4 d-flex flex-column align-items-center">
+										<img src="{{ asset('siswa_photos/' . $siswa->foto) }}" alt="Current Photo" class="img-thumbnail mb-3" style="max-width: 100%; height: auto;">
+										<input type="file" class="form-control bg-white" id="foto" name="foto">
+									</div>
+									<!-- Form -->
+									<div class="col-md-8">
+										<form action="{{ route('siswa.update', $siswa->id) }}" method="POST" enctype="multipart/form-data">
+											@csrf
+											@method('PUT')
+											<div class="row">
+												<!-- Nama -->
+												<div class="col-md-6 mb-3">
+													<label for="nama" class="form-label text-white">Nama</label>
+													<input type="text" class="form-control bg-white" id="nama" name="nama" value="{{ $siswa->nama }}" required>
+												</div>
+												<!-- NISN -->
+												<div class="col-md-6 mb-3">
+													<label for="nisn" class="form-label text-white">NISN</label>
+													<input type="text" class="form-control bg-white" id="nisn" name="nisn" value="{{ $siswa->nisn }}" required>
+												</div>
+												<!-- Kelas -->
+												<div class="col-md-6 mb-3">
+													<label for="kelas" class="form-label text-white">Kelas</label>
+													<input type="text" class="form-control bg-white" id="kelas" name="kelas" value="{{ $siswa->kelas }}" required>
+												</div>
+												<!-- Nomor Telepon -->
+												<div class="col-md-6 mb-3">
+													<label for="nomor_telepon" class="form-label text-white">Nomor Telepon</label>
+													<input type="text" class="form-control bg-white" id="nomor_telepon" name="nomor_telepon" value="{{ $siswa->nomor_telepon }}" required>
+												</div>
+												<!-- Email -->
+												<div class="col-md-6 mb-3">
+													<label for="email" class="form-label text-white">Email</label>
+													<input type="email" class="form-control bg-white" id="email" name="email" value="{{ $siswa->user->email }}" required>
+												</div>
+												<!-- Password -->
+												<div class="col-md-6 mb-3">
+													<label for="password" class="form-label text-white">Password</label>
+													<input type="password" class="form-control bg-white" id="password" name="password" placeholder="Biarkan Kosong Jika Tidak Diganti">
+												</div>
+												<!-- Confirm Password -->
+												<div class="col-md-6 mb-3">
+													<label for="password_confirmation" class="form-label text-white">Confirm Password</label>
+													<input type="password" class="form-control bg-white	" id="password_confirmation" name="password_confirmation" placeholder="Biarkan Kosong Jika Tidak Diganti">
+												</div>
+											</div>
+											<div class="text-end mt-4">
+												<button type="submit" class="btn btn-primary">Save Changes</button>
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
 
 			<!--  Main Content Start -->
 			<div class="container-fluid">

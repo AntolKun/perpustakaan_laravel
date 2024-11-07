@@ -114,6 +114,7 @@ Route::middleware(['auth', 'role:siswa'])->group(function () {
     Route::get("/dashboard", [DashboardController::class, "index"])
     ->middleware(["auth", "verified"])
     ->name("dashboard");
+    Route::put('/siswa/{id}', [DashboardController::class, 'editSiswaData'])->name('siswa.update');
 
     Route::get('/detailbuku/{id}', [DashboardController::class, 'show'])->middleware(["auth", "verified"])->name('buku.show');
 
