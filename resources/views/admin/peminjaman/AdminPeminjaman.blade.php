@@ -23,8 +23,8 @@
     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
       <thead style="background-color: #3751CF; color: white;">
         <tr>
-          <th>Judul Buku</th>
           <th>Nama Peminjam</th>
+          <th>Judul Buku</th>
           <th>Tanggal Pengajuan</th>
           <th>Tanggal Peminjaman</th>
           <th>Tanggal Pengembalian</th>
