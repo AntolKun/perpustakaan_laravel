@@ -28,7 +28,6 @@ class AdminNilaiSiswaController extends Controller
       'field_4' => 'required|integer|min:0|max:100',
     ]);
 
-    // Menghitung total nilai berdasarkan bobot
     $total_nilai =
       ($request->field_1 * 0.25) + // Field 1 bobot 25%
       ($request->field_2 * 0.35) + // Field 2 bobot 35%
@@ -50,10 +49,9 @@ class AdminNilaiSiswaController extends Controller
       ]
     );
 
-    // Redirect ke route dengan parameter yang benar
     return redirect()->route('adminLomba.kategori.peserta', [
-      'lomba' => $request->lomba_id, // ID Lomba dari form
-      'kategori' => $request->kategori_lomba_id // ID Kategori dari form
+      'lomba' => $request->lomba_id, 
+      'kategori' => $request->kategori_lomba_id 
     ])->with('success', 'Nilai berhasil disimpan.');
   }
 
