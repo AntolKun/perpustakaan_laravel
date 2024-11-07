@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Peminjaman;
 use App\Models\Pengembalian;
+use App\Models\KategoriBuku;
 use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -17,11 +18,25 @@ use App\Models\Buku;
 
 class DashboardController extends Controller
 {
-		public function index() {
+	public function index(Request $request)
+	{
+		// Get all categories
+		$allBuku = Buku::all();
 
-			$buku = Buku::all();
-			return view('Dashboard', ['buku' => $buku]);
-		}
+		$kategoriBuku = KategoriBuku::all();
+
+		// Filter books by selected category (if provided)
+		$buku = Buku::when($request->kategori_id, function ($query, $kategoriId) {
+			return $query->where('kategori_id', $kategoriId);
+		})->get();
+
+		return view('Dashboard', [
+			'allBuku' => $allBuku,
+			'buku' => $buku,
+			'kategoriBuku' => $kategoriBuku,
+			'selectedKategori' => $request->kategori_id,
+		]);
+	}
 
 	public function show($id)
 	{
