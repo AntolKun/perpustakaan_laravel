@@ -156,7 +156,7 @@
 									<!-- Thumbnail -->
 									<div class="col-md-4 d-flex flex-column align-items-center">
 										<img src="{{ asset('siswa_photos/' . $siswa->foto) }}" alt="Current Photo" class="img-thumbnail mb-3" style="max-width: 100%; height: auto;">
-										<input type="file" class="form-control bg-white" id="foto" name="foto">
+										<input type="file" class="form-control" id="foto" name="foto">
 									</div>
 									<!-- Form -->
 									<div class="col-md-8">

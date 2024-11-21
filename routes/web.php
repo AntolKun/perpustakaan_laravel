@@ -41,9 +41,6 @@ Route::middleware(['auth', 'role:admin,pustakawan,juri'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    // Route::get("/adminDashboard", [AdminDashboardController::class, "index"])
-    //     ->middleware(["auth", "verified"])
-    //     ->name("adminDashboard");
 
     Route::get("/adminData", [AdminDataController::class, "index"])->name("adminData");
     Route::get("/adminLihatData/{id}", [AdminDataController::class, "lihatData"])->name("adminLihatData");
@@ -55,10 +52,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:admin,pustakawan'])->group(function () {
-    // Route::get("/adminDashboard", [AdminDashboardController::class, "index"])
-    // ->middleware(["auth", "verified"])
-    // ->name("adminDashboard");
-
     Route::resource('/adminKategori', AdminKategoriBukuController::class);
 
     Route::get("/adminBuku", [AdminBukuController::class, "index"])->name("adminBuku");
@@ -79,10 +72,6 @@ Route::middleware(['auth', 'role:admin,pustakawan'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:admin,juri'])->group(function () {
-    // Route::get("/adminDashboard", [AdminDashboardController::class, "index"])
-    // ->middleware(["auth", "verified"])
-    // ->name("adminDashboard");
-
     Route::get('/adminLomba', [AdminLombaController::class, 'index'])->name('lomba.index');
     Route::post('/adminLomba/store', [AdminLombaController::class, 'store'])->name('lomba.store');
     Route::post('/adminLomba/update/{id}', [AdminLombaController::class, 'update'])->name('lomba.update');
@@ -139,7 +128,7 @@ Route::get('/login', function () {
     return view('auth.Login');
 })->name('login');
 Route::post('actionLogin', [LoginController::class, 'actionLogin']);
-Route::get('actionLogout', [LoginController::class, 'actionLogout'])
+Route::post('actionLogout', [LoginController::class, 'actionLogout'])
     ->name('actionLogout')
     ->middleware('auth');
 

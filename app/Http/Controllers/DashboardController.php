@@ -83,7 +83,7 @@ class DashboardController extends Controller
 		// Validate the request
 		$request->validate([
 			'nama' => 'required|string',
-			'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+			'foto' => 'nullable|image',
 			'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
 			'password' => 'nullable|string|min:8|confirmed',
 			'nisn' => 'required|string',
