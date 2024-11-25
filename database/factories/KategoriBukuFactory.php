@@ -11,7 +11,7 @@ class KategoriBukuFactory extends Factory
     public function definition()
     {
         return [
-            'nama_kategori' => $this->faker->word,
+            'nama_kategori' => $this->faker->word(),
         ];
     }
 }
