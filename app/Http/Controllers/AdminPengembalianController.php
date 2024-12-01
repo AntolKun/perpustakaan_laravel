@@ -11,12 +11,10 @@ class AdminPengembalianController extends Controller
   // Show all pengembalian records
   public function index()
   {
-    // ambil semua data buku yang disetujui
     $peminjamans = Peminjaman::with('pengembalian', 'buku')
       ->where('status', '!=', 'ditolak')
       ->get();
 
-    // Pass peminjamans dengan kalkulasi denda ke view
     return view('admin.pengembalian.AdminPengembalian', compact('peminjamans'));
   }
 
@@ -25,16 +23,19 @@ class AdminPengembalianController extends Controller
   {
     $peminjaman = Peminjaman::findOrFail($id);
 
-    // cek apakah buku sudah dikembalikan
+    // Check if the book has already been returned
     if ($peminjaman->pengembalian) {
       return redirect()->back()->with('error', 'Buku sudah dikembalikan.');
     }
 
-    // buat entry pengembalian baru
+    // Create new pengembalian entry
     $pengembalian = new Pengembalian();
     $pengembalian->peminjaman_id = $peminjaman->id;
     $pengembalian->tanggal_dikembalikan = now();
-    $pengembalian->denda = Pengembalian::calculateDenda($peminjaman->tanggal_pengembalian);
+    $pengembalian->denda = Pengembalian::calculateDenda(
+      $peminjaman->tanggal_pengembalian,
+      $pengembalian->tanggal_dikembalikan
+    );
     $pengembalian->status = 'sudah dikembalikan';
     $pengembalian->save();
 

@@ -26,12 +26,26 @@ class Pengembalian extends Model
   }
 
   // Function to calculate penalty based on overdue days
-  public static function calculateDenda($tanggalPengembalian)
+  // public static function calculateDenda($tanggalPengembalian)
+  // {
+  //   $now = Carbon::now();
+  //   if ($now->greaterThan($tanggalPengembalian)) {
+  //     $diff = $now->diffInDays($tanggalPengembalian);
+  //     return $diff * 2500; // Rp. 1000 per day overdue
+  //   }
+  //   return 0;
+  // }
+
+  public static function calculateDenda($tanggalPengembalian, $tanggalDikembalikan)
   {
+    if ($tanggalDikembalikan !== null) {
+      return 0;
+    }
+
     $now = Carbon::now();
     if ($now->greaterThan($tanggalPengembalian)) {
       $diff = $now->diffInDays($tanggalPengembalian);
-      return $diff * 2500; // Rp. 1000 per day overdue
+      return $diff * 2500; // Rp. 2500 per hari keterlambatan
     }
     return 0;
   }

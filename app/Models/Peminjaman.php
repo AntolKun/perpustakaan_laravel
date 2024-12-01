@@ -45,7 +45,10 @@ class Peminjaman extends Model
     // Function to calculate potential denda
     public function potensiDenda()
     {
-        $tanggalPengembalian = Carbon::parse($this->tanggal_pengembalian);
-        return Pengembalian::calculateDenda($tanggalPengembalian);
+        if ($this->pengembalian) {
+            return $this->pengembalian->denda;
+        }
+
+        return Pengembalian::calculateDenda($this->tanggal_pengembalian, now());
     }
 }
