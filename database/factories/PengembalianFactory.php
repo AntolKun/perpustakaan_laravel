@@ -17,10 +17,40 @@ class PengembalianFactory extends Factory
         $tanggalPengembalian = $tanggalPinjam->addDays(rand(1, 5));
 
         return [
-            'peminjaman_id' => Peminjaman::factory(), // Membuat peminjaman terkait
-            'tanggal_dikembalikan' => Carbon::now()->format('Y-m-d'),
-            'denda' => Pengembalian::calculateDenda($tanggalPengembalian),
+            'peminjaman_id' => Peminjaman::factory(),
+            'tanggal_dikembalikan' => Carbon::now(), // Tetap sebagai objek Carbon
+            'denda' => Pengembalian::calculateDenda(
+                $tanggalPengembalian,
+                Carbon::now() // Pastikan ini Carbon
+            ),
             'status' => 'selesai',
         ];
     }
+
+    public static function calculateDenda($tanggalPengembalian, $tanggalDikembalikan)
+    {
+        // Log nilai untuk debugging
+        logger()->info('Tanggal Pengembalian:', ['tanggalPengembalian' => $tanggalPengembalian]);
+        logger()->info('Tanggal Dikembalikan:', ['tanggalDikembalikan' => $tanggalDikembalikan]);
+
+        $tanggalPengembalian = $tanggalPengembalian instanceof Carbon
+            ? $tanggalPengembalian
+            : Carbon::parse($tanggalPengembalian);
+
+        $tanggalDikembalikan = $tanggalDikembalikan instanceof Carbon
+            ? $tanggalDikembalikan
+            : Carbon::parse($tanggalDikembalikan);
+
+        logger()->info('Parsed Tanggal Pengembalian:', ['tanggalPengembalian' => $tanggalPengembalian]);
+        logger()->info('Parsed Tanggal Dikembalikan:', ['tanggalDikembalikan' => $tanggalDikembalikan]);
+
+        if ($tanggalDikembalikan->greaterThan($tanggalPengembalian)) {
+            $selisihHari = $tanggalPengembalian->diffInDays($tanggalDikembalikan);
+            logger()->info('Selisih Hari:', ['selisihHari' => $selisihHari]);
+            return $selisihHari * 2500;
+        }
+
+        return 0;
+    }
+
 }

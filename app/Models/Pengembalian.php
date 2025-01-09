@@ -38,15 +38,16 @@ class Pengembalian extends Model
 
   public static function calculateDenda($tanggalPengembalian, $tanggalDikembalikan)
   {
-    if ($tanggalDikembalikan !== null) {
-      return 0;
+    // Jika tanggal dikembalikan lebih dari tanggal pengembalian yang seharusnya
+    if ($tanggalDikembalikan->greaterThan($tanggalPengembalian)) {
+      // Hitung selisih hari keterlambatan
+      $selisihHari = $tanggalPengembalian->diffInDays($tanggalDikembalikan);
+      // Kalikan dengan tarif denda per hari
+      return $selisihHari * 2500; // Rp 2500 per hari keterlambatan
     }
 
-    $now = Carbon::now();
-    if ($now->greaterThan($tanggalPengembalian)) {
-      $diff = $now->diffInDays($tanggalPengembalian);
-      return $diff * 2500; // Rp. 2500 per hari keterlambatan
-    }
+    // Tidak ada denda jika tidak terlambat
     return 0;
   }
+
 }
