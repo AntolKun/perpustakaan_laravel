@@ -10,73 +10,59 @@
 @stop
 
 @section('content')
-<div class="row">
-  <div class="col-12">
-    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-      <h4 class="mb-sm-0 font-size-18">Pengembalian Buku</h4>
-      <div>
-        <a type="button" class="btn btn-primary waves-effect waves-light" href="{{ route('admin.pengembalian.rekap') }}">
-          <i class="bx bx-plus font-size-16 align-middle me-2"></i>Rekap Pengembalian</a>
+<div class="row mb-3">
+  <div class="col-md-6">
+    <h4>Rekap Pengembalian Buku</h4>
+  </div>
+  <div class="col-md-6 text-end">
+    <!-- Form Filter Bulan dan Tahun -->
+    <form action="{{ route('admin.pengembalian.rekap') }}" method="GET" class="d-inline">
+      <div class="input-group">
+        <select name="bulan" class="form-select">
+          @foreach(range(1, 12) as $m)
+          <option value="{{ $m }}" {{ $m == $bulan ? 'selected' : '' }}>
+            {{ DateTime::createFromFormat('!m', $m)->format('F') }}
+          </option>
+          @endforeach
+        </select>
+        <select name="tahun" class="form-select">
+          @foreach(range(now()->year - 5, now()->year) as $y)
+          <option value="{{ $y }}" {{ $y == $tahun ? 'selected' : '' }}>
+            {{ $y }}
+          </option>
+          @endforeach
+        </select>
+        <button type="submit" class="btn btn-primary">Cari!</button>
       </div>
-    </div>
+    </form>
   </div>
 </div>
 
 <div class="row">
   <div class="col-12">
-    <table id="datatable" class="display table table-bordered w-100">
-      <thead style="background-color: #3751CF; color: white; text-align: center;">
+    <table id="datatable" class="table table-bordered dt-responsive nowrap w-100" style="border: 2px solid #3751CF;">
+      <thead style="background-color: #3751CF; color: white;">
         <tr>
           <th>Judul Buku</th>
           <th>Nama Peminjam</th>
-          <th>Tanggal Peminjaman</th>
-          <th>Tanggal Pengembalian</th>
-          <th>Denda</th>
           <th>Tanggal Dikembalikan</th>
-          <th>Status</th>
-          <th>Aksi</th>
+          <th>Denda</th>
         </tr>
       </thead>
       <tbody>
-        @foreach($peminjamans as $peminjaman)
+        @foreach($pengembalians as $pengembalian)
         <tr>
-          <td>{{ $peminjaman->buku->judulbuku }}</td>
-          <td>{{ $peminjaman->nama }}</td>
-          <td>{{ \Carbon\Carbon::parse($peminjaman->tanggal_pinjam)->format('d-m-Y') }}</td>
-          <td>{{ \Carbon\Carbon::parse($peminjaman->tanggal_pengembalian)->format('d-m-Y') }}</td>
-          <td>
-            Rp. {{ number_format($peminjaman->potensiDenda(), 0, ',', '.') }}
-          </td>
-          <td>
-            @if($peminjaman->pengembalian)
-            {{ \Carbon\Carbon::parse($peminjaman->pengembalian->tanggal_dikembalikan)->format('d-m-Y') }}
-            @else
-            -
-            @endif
-          </td>
-          <td>
-            @if($peminjaman->pengembalian)
-            <span class="badge bg-success">{{ ucfirst($peminjaman->pengembalian->status) }}</span>
-            @else
-            <span class="badge bg-warning">Belum dikembalikan</span>
-            @endif
-          </td>
-          <td>
-            @if(!$peminjaman->pengembalian)
-            <form action="{{ route('admin.pengembalian.store', $peminjaman->id) }}" method="POST">
-              @csrf
-              <button type="submit" class="btn btn-primary">Kembalikan Buku</button>
-            </form>
-            @else
-            <button class="btn btn-secondary" disabled>Sudah Dikembalikan</button>
-            @endif
-          </td>
+          <td>{{ $pengembalian->peminjaman->buku->judulbuku }}</td>
+          <td>{{ $pengembalian->peminjaman->nama }}</td>
+          <td>{{ \Carbon\Carbon::parse($pengembalian->tanggal_dikembalikan)->format('d-m-Y') }}</td>
+          <td>Rp. {{ number_format($pengembalian->denda, 0, ',', '.') }}</td>
         </tr>
         @endforeach
       </tbody>
     </table>
   </div>
 </div>
+
 @section('js')
 <!-- Required datatable js -->
 <script src="{{ asset('skoteassets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>

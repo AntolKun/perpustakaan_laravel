@@ -41,4 +41,21 @@ class AdminPengembalianController extends Controller
 
     return redirect()->back()->with('success', 'Buku berhasil dikembalikan.');
   }
+
+  public function rekap(Request $request)
+  {
+    // Ambil bulan dan tahun dari request (default: bulan dan tahun ini)
+    $bulan = $request->input('bulan', now()->month);
+    $tahun = $request->input('tahun', now()->year);
+
+    // Query pengembalian berdasarkan bulan dan tahun
+    $pengembalians = Pengembalian::with('peminjaman.buku')
+    ->whereYear('tanggal_dikembalikan', $tahun)
+      ->whereMonth('tanggal_dikembalikan', $bulan)
+      ->get();
+
+    // Kirim data ke view
+    return view('admin.pengembalian.RekapPengembalian', compact('pengembalians', 'bulan', 'tahun'));
+  }
+
 }

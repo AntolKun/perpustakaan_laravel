@@ -42,9 +42,9 @@
 					</a>
 					<h5 class="text-center mt-2 mb-0 text-bold">Perpustakaan</h5>
 					<h5 class="text-center mt-2 mb-0 text-bold">SMAN 8 Bandar Lampung</h5>
-					<div class="close-btn d-lg-none d-block sidebartoggler cursor-pointer mt-3" id="sidebarCollapse">
+					<!-- <div class="close-btn d-lg-none d-block sidebartoggler cursor-pointer mt-3" id="sidebarCollapse">
 						<i class="ti ti-x fs-8 text-muted"></i>
-					</div>
+					</div> -->
 				</div>
 				<!-- Sidebar navigation-->
 				<nav class="sidebar-nav scroll-sidebar" data-simplebar>
@@ -154,58 +154,59 @@
 							<div class="container p-4 rounded" style="background-color: #10439F;">
 								<div class="row">
 									<!-- Thumbnail -->
-									<div class="col-md-4 d-flex flex-column align-items-center">
-										<img src="{{ asset('siswa_photos/' . $siswa->foto) }}" alt="Current Photo" class="img-thumbnail mb-3" style="max-width: 100%; height: auto;">
-										<input type="file" class="form-control" id="foto" name="foto">
-									</div>
-									<!-- Form -->
-									<div class="col-md-8">
-										<form action="{{ route('siswa.update', $siswa->id) }}" method="POST" enctype="multipart/form-data">
-											@csrf
-											@method('PUT')
-											<div class="row">
+									<form action="{{ route('siswa.update', $siswa->id) }}" method="POST" enctype="multipart/form-data">
+										@csrf
+										@method('PUT')
+										<div class="row">
+											<!-- Foto -->
+											<div class="col-md-4 d-flex flex-column align-items-center">
+												<img src="{{ asset('siswa_photos/' . $siswa->foto) }}" alt="Current Photo" class="img-thumbnail mb-3" style="max-width: 100%; height: auto;">
+												<input type="file" class="form-control" id="foto" name="foto">
+											</div>
+											<!-- Form Input -->
+											<div class="col-md-8">
 												<!-- Nama -->
-												<div class="col-md-6 mb-3">
+												<div class="mb-3">
 													<label for="nama" class="form-label text-white">Nama</label>
 													<input type="text" class="form-control bg-white" id="nama" name="nama" value="{{ $siswa->nama }}" required>
 												</div>
 												<!-- NISN -->
-												<div class="col-md-6 mb-3">
+												<div class="mb-3">
 													<label for="nisn" class="form-label text-white">NISN</label>
 													<input type="text" class="form-control bg-white" id="nisn" name="nisn" value="{{ $siswa->nisn }}" required>
 												</div>
 												<!-- Kelas -->
-												<div class="col-md-6 mb-3">
+												<div class="mb-3">
 													<label for="kelas" class="form-label text-white">Kelas</label>
 													<input type="text" class="form-control bg-white" id="kelas" name="kelas" value="{{ $siswa->kelas }}" required>
 												</div>
 												<!-- Nomor Telepon -->
-												<div class="col-md-6 mb-3">
+												<div class="mb-3">
 													<label for="nomor_telepon" class="form-label text-white">Nomor Telepon</label>
 													<input type="text" class="form-control bg-white" id="nomor_telepon" name="nomor_telepon" value="{{ $siswa->nomor_telepon }}" required>
 												</div>
 												<!-- Email -->
-												<div class="col-md-6 mb-3">
+												<div class="mb-3">
 													<label for="email" class="form-label text-white">Email</label>
 													<input type="email" class="form-control bg-white" id="email" name="email" value="{{ $siswa->user->email }}" required>
 												</div>
 												<!-- Password -->
-												<div class="col-md-6 mb-3">
+												<div class="mb-3">
 													<label for="password" class="form-label text-white">Password</label>
 													<input type="password" class="form-control bg-white" id="password" name="password" placeholder="Biarkan Kosong Jika Tidak Diganti">
 												</div>
 												<!-- Confirm Password -->
-												<div class="col-md-6 mb-3">
+												<div class="mb-3">
 													<label for="password_confirmation" class="form-label text-white">Confirm Password</label>
-													<input type="password" class="form-control bg-white	" id="password_confirmation" name="password_confirmation" placeholder="Biarkan Kosong Jika Tidak Diganti">
+													<input type="password" class="form-control bg-white" id="password_confirmation" name="password_confirmation" placeholder="Biarkan Kosong Jika Tidak Diganti">
 												</div>
 											</div>
-											<div class="text-end mt-4">
-												<button type="submit" class="btn btn-primary">Save Changes</button>
-												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-											</div>
-										</form>
-									</div>
+										</div>
+										<div class="text-end mt-4">
+											<button type="submit" class="btn btn-primary">Save Changes</button>
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>

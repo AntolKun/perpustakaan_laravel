@@ -69,8 +69,15 @@
 							<i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
 						</button>
 						<div class="dropdown-menu dropdown-menu-end">
-							<a class="dropdown-item text-danger" href="{{ route('actionLogout') }}"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
-								<span key="t-logout">Logout</span></a>
+							<div class="dropdown-item text-danger">
+								<form id="logout-form" action="{{ route('actionLogout') }}" method="POST" style="display: none;">
+									@csrf
+								</form>
+								<a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+									<i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
+									<span key="t-logout">Logout</span>
+								</a>
+							</div>
 						</div>
 					</div>
 
@@ -89,8 +96,8 @@
 				<!--- Sidemenu -->
 				<div id="sidebar-menu">
 					<div class="mb-2 mt-4 text-center d-flex flex-column justify-content-center align-items-center">
-						<h5>Selamat Datang</h5>
-						<h6>Admin {{ $admin->nama }}</h6>
+						<h5 class="text-white">Selamat Datang</h5>
+						<h6 class="text-white">Admin {{ $admin->nama }}</h6>
 					</div>
 					<!-- Left Menu Start -->
 					<ul class="metismenu list-unstyled" id="side-menu">

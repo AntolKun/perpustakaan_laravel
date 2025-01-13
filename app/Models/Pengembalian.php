@@ -25,7 +25,6 @@ class Pengembalian extends Model
     return $this->belongsTo(Peminjaman::class);
   }
 
-  // Function to calculate penalty based on overdue days
   // public static function calculateDenda($tanggalPengembalian)
   // {
   //   $now = Carbon::now();
@@ -46,7 +45,6 @@ class Pengembalian extends Model
       return $selisihHari * 2500; // Rp 2500 per hari keterlambatan
     }
 
-    // Tidak ada denda jika tidak terlambat
     return 0;
   }
 

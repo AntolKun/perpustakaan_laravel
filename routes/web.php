@@ -69,6 +69,8 @@ Route::middleware(['auth', 'role:admin,pustakawan'])->group(function () {
     Route::post('peminjaman/reject/{id}', [PeminjamanController::class, 'reject'])->name('peminjaman.reject');
     Route::get('/adminPengembalian', [AdminPengembalianController::class, 'index'])->name('admin.pengembalian.index');
     Route::post('/adminPengembalian/return/{id}', [AdminPengembalianController::class, 'store'])->name('admin.pengembalian.store');
+    Route::get('/admin/pengembalian/rekap', [AdminPengembalianController::class, 'rekap'])->name('admin.pengembalian.rekap');
+
 });
 
 Route::middleware(['auth', 'role:admin,juri'])->group(function () {
