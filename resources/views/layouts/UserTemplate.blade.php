@@ -132,10 +132,13 @@
 								<i class="bx bx-edit font-size-16 align-middle me-1"></i>
 								<span>Edit Profile</span>
 							</a>
-							<a class="dropdown-item text-danger" href="{{ route('actionLogout') }}">
+							<a class="dropdown-item text-danger" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 								<i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
 								<span>Logout</span>
 							</a>
+							<form id="logout-form" action="{{ route('actionLogout') }}" method="POST" style="display: none;">
+								@csrf
+							</form>
 						</div>
 					</div>
 				</nav>
