@@ -59,6 +59,12 @@
         </tr>
         @endforeach
       </tbody>
+      <tfoot>
+        <tr style="font-weight: bold; background-color: #f8f9fa;">
+          <td colspan="3" class="text-end">Total Denda:</td>
+          <td>Rp. {{ number_format($pengembalians->sum('denda'), 0, ',', '.') }}</td>
+        </tr>
+      </tfoot>
     </table>
   </div>
 </div>
