@@ -17,6 +17,13 @@
 	<link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logosma.png') }}" />
 	<link rel="stylesheet" href="{{ asset('dist/libs/owl.carousel/dist/assets/owl.carousel.min.css') }}">
 	<link id="themeColors" rel="stylesheet" href="{{ asset('dist/css/style.min.css') }}" />
+	<style>
+		@media screen and (max-width: 1024px) {
+			.show-on-small {
+				display: block !important;
+			}
+		}
+	</style>
 	@yield('css')
 </head>
 
@@ -98,47 +105,42 @@
 		<div class="body-wrapper">
 			<header class="app-header">
 				<nav class="navbar navbar-expand-lg navbar-light">
-					<ul class="navbar-nav ms-auto">
-						<li class="nav-item">
-							<!-- <a class="nav-link sidebartoggler nav-icon-hover ms-n3" id="headerCollapse" href="javascript:void(0)">
-								<i class="ti ti-menu-2"></i>
-							</a> -->
-						</li>
-					</ul>
-					<div class="d-block d-lg-none">
-						<img src="{{ asset('assets/images/logosma.png') }}" class="dark-logo" width="60" alt="" />
-						<img src="{{ asset('assets/images/logosma.png') }}" class="light-logo" width="60" alt="" />
-					</div>
-					<!-- <button class="navbar-toggler p-0 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="p-2">
-							<i class=""></i>
-						</span>
-					</button> -->
+					<div class="container d-flex justify-content-between align-items-center">
+						<!-- Sidebar Toggler (Kiri) -->
+						<a class="nav-link sidebartoggler nav-icon-hover me-auto show-on-small" id="headerCollapse" href="javascript:void(0)" style="display: none;">
+							<i class="ti ti-menu-2"></i>
+						</a>
 
-					<div class="dropdown d-inline-block">
-						@php
-						$user = auth()->user();
-						$siswa = $user->siswa;
-						@endphp
-						<button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<img class="rounded-circle header-profile-user" src="{{ $siswa && $siswa->foto ? asset('siswa_photos/' . $siswa->foto) : 'https://i.redd.it/cudrte4m27n71.png' }}" width="40" alt="Header Avatar" />
-							<span class="d-none d-xl-inline-block ms-1" key="t-henry">
-								{{ $siswa ? $siswa->nama : 'User' }}
-							</span>
-							<i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
-						</button>
-						<div class="dropdown-menu dropdown-menu-end">
-							<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editSiswaModal">
-								<i class="bx bx-edit font-size-16 align-middle me-1"></i>
-								<span>Edit Profile</span>
-							</a>
-							<a class="dropdown-item text-danger" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-								<i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
-								<span>Logout</span>
-							</a>
-							<form id="logout-form" action="{{ route('actionLogout') }}" method="POST" style="display: none;">
-								@csrf
-							</form>
+						<!-- Logo (Tengah) -->
+						<div class="d-block d-lg-none mx-auto text-center">
+							<img src="{{ asset('assets/images/logosma.png') }}" class="dark-logo" width="60" alt="Logo" />
+							<img src="{{ asset('assets/images/logosma.png') }}" class="light-logo" width="60" alt="Logo" />
+						</div>
+
+						<!-- Profile (Kanan) -->
+						<div class="dropdown ms-auto">
+							@php
+							$user = auth()->user();
+							$siswa = $user->siswa;
+							@endphp
+							<button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<img class="rounded-circle header-profile-user" src="{{ $siswa && $siswa->foto ? asset('siswa_photos/' . $siswa->foto) : 'https://i.redd.it/cudrte4m27n71.png' }}" width="40" alt="Header Avatar" />
+								<span class="d-none d-xl-inline-block ms-1">{{ $siswa ? $siswa->nama : 'User' }}</span>
+								<i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+							</button>
+							<div class="dropdown-menu dropdown-menu-end">
+								<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editSiswaModal">
+									<i class="bx bx-edit font-size-16 align-middle me-1"></i>
+									<span>Edit Profile</span>
+								</a>
+								<a class="dropdown-item text-danger" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+									<i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
+									<span>Logout</span>
+								</a>
+								<form id="logout-form" action="{{ route('actionLogout') }}" method="POST" style="display: none;">
+									@csrf
+								</form>
+							</div>
 						</div>
 					</div>
 				</nav>
